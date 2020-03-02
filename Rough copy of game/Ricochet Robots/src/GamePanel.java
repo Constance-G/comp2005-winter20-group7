@@ -330,7 +330,7 @@ public class GamePanel extends JPanel {
 		MapPanel mp3 = rotate2DStringArray(mapLayout[2],4);
 		MapPanel mp4 = rotate2DStringArray(mapLayout[3],3);
 		
-		System.out.println("Should be 4 zeros");
+		
 		System.out.println("mp1: " + mp1.getMap()[7][7]);
 		System.out.println("mp2: " + mp2.getMap()[0][7]);
 		System.out.println("mp3: " + mp3.getMap()[0][0]);
@@ -481,8 +481,9 @@ public class GamePanel extends JPanel {
 
 	}
 
-	class SimplePanel1 extends MapPanel{
+	class SimplePanel1 extends MapPanel{//This is board 1A
 
+		//By default, each panel is stored like 1A in simple.png, in the equivalent Cartesian quadrant 2.
 
 		public int panelNum = 1;
 		public int panelLocation = 2;//in Quadrants
@@ -494,26 +495,19 @@ public class GamePanel extends JPanel {
 
 		int SIZE = 8;
 
-		//This an 8x8 Array used to store the board.
-		//To access a piece, call map[i][j] where i in the positive x direction
-		//and j is in the negative y value. In other words, map in in quadrant 4 by default
-		String[][] mapold = {{"reg"},{"reg"},{"leftWall"},{"reg"},{"reg"},{"reg"},{"reg"},{"reg"},
-							{"reg"},{"reg"},{"reg"},{"reg"},{"2l"},{"reg"},{"reg"},{"reg"},
-							{"reg"},{"1l"},{"reg"},{"reg"},{"reg"},{"reg"},{"reg"},{"reg"},
-							{"reg"},{"reg"},{"reg"},{"reg"},{"reg"},{"reg"},{"4l"},{"reg"},
-							{"reg"},{"reg"},{"reg"},{"reg"},{"reg"},{"reg"},{"reg"},{"reg"},
-							{"bottomWall"},{"reg"},{"reg"},{"reg"},{"reg"},{"reg"},{"reg"},{"reg"},
-							{"reg"},{"reg"},{"reg"},{"3l"},{"reg"},{"reg"},{"reg"},{"reg"},
-							{"reg"},{"reg"},{"reg"},{"reg"},{"reg"},{"reg"},{"reg"},{"0"}};
+		//This an 8x8 Matrix used to store the board.
+		//Note: This Matrix looks transposed compared to the drawn boards. This is intended. The first row is actually the first column to be drawn.
+		//To access a piece, call map[i][j] where i is in the positive x direction
+		//and j is in the negative y value. (map[0][0] = "reg" , map[7][7] = "1")
 
 		String[][] map = {{"reg","reg","reg","reg","reg","bottomWall","reg","reg"},
-				{"reg","reg","1l","reg","reg","reg","reg","reg"},
-				{"leftWall","reg","reg","reg","reg","reg","reg","reg"},
-				{"reg","reg","reg","reg","reg","reg","3l","reg",},
-				{"reg","2l","reg","reg","reg","reg","reg","reg",},
-				{"reg","reg","reg","reg","reg","reg","reg","reg",},
-				{"reg","reg","reg","4l","reg","reg","reg","reg",},
-				{"reg","reg","reg","reg","reg","reg","reg","1",}};//add numbers from 1-4 instead of 0's
+						{"reg","reg","1l","reg","reg","reg","reg","reg"},
+						{"leftWall","reg","reg","reg","reg","reg","reg","reg"},
+						{"reg","reg","reg","reg","reg","reg","3l","reg",},
+						{"reg","2l","reg","reg","reg","reg","reg","reg",},
+						{"reg","reg","reg","reg","reg","reg","reg","reg",},
+						{"reg","reg","reg","4l","reg","reg","reg","reg",},
+						{"reg","reg","reg","reg","reg","reg","reg","1",}};
 
 		@Override
 		String[][] getMap(){
@@ -545,24 +539,27 @@ public class GamePanel extends JPanel {
 
 	class SimplePanel2 extends MapPanel{
 
+		//By default, each panel is stored like 1A in simple.png, in the equivalent Cartesian quadrant 2.
+		
 		int panelNum = 2;
 		public int panelLocation = 2;//in Quadrants
 
 		SimplePanel2(){
 			super();
 		}
-		//This an 8x8 Array used to store the board.
-		//To access a piece, call map[i][j] where i in the positive x direction
-		//and j is in the negative y value. In other words, map in in quadrant 4 by default
+		//This an 8x8 Matrix used to store the board.
+		//Note: This Matrix looks transposed compared to the drawn boards. This is intended. The first row is actually the first column to be drawn.
+		//To access a piece, call map[i][j] where i is in the positive x direction
+		//and j is in the negative y value. (map[0][0] = "reg" , map[7][7] = "2")
 	
 		String[][] map = {{"reg","reg","reg","bottomWall","reg","reg","reg","reg"},
-				{"reg","reg","3l","reg","reg","reg","reg","reg"},
-				{"reg","reg","reg","reg","reg","reg","1l","reg"},
-				{"leftWall","reg","reg","reg","reg","reg","reg","reg",},
-				{"reg","reg","reg","reg","reg","reg","reg","reg",},
-				{"reg","4l","reg","reg","reg","reg","reg","reg",},
-				{"reg","reg","reg","reg","2l","reg","reg","reg",},
-				{"reg","reg","reg","reg","reg","reg","reg","2",}};
+						{"reg","reg","3l","reg","reg","reg","reg","reg"},
+						{"reg","reg","reg","reg","reg","reg","1l","reg"},
+						{"leftWall","reg","reg","reg","reg","reg","reg","reg",},
+						{"reg","reg","reg","reg","reg","reg","reg","reg",},
+						{"reg","4l","reg","reg","reg","reg","reg","reg",},
+						{"reg","reg","reg","reg","2l","reg","reg","reg",},
+						{"reg","reg","reg","reg","reg","reg","reg","2",}};
 
 		@Override
 		String[][] getMap(){
@@ -594,6 +591,8 @@ public class GamePanel extends JPanel {
 	}
 
 	class SimplePanel3 extends MapPanel{
+		
+		//By default, each panel is stored like 1A in simple.png, in the equivalent Cartesian quadrant 2.
 
 		int panelNum = 3;
 		public int panelLocation = 2;//in Quadrants
@@ -602,18 +601,19 @@ public class GamePanel extends JPanel {
 			super();
 		}
 
-		//This an 8x8 Array used to store the board.
-		//To access a piece, call map[i][j] where i in the positive x direction
-		//and j is in the negative y value. In other words, map in in quadrant 4 by default
+		//This an 8x8 Matrix used to store the board.
+		//Note: This Matrix looks transposed compared to the drawn boards. This is intended. The first row is actually the first column to be drawn.
+		//To access a piece, call map[i][j] where i is in the positive x direction
+		//and j is in the negative y value. (map[0][0] = "reg" , map[7][7] = "3")
 
 		String[][] map = {{"reg","reg","reg","reg","bottomWall","reg","reg","reg"},
-				{"reg","reg","reg","reg","reg","reg","2l","reg"},
-				{"reg","reg","reg","reg","1l","reg","reg","reg"},
-				{"reg","reg","reg","reg","reg","reg","reg","reg",},
-				{"leftWall","reg","reg","reg","reg","reg","reg","reg",},
-				{"reg","reg","4l","reg","reg","reg","reg","reg",},
-				{"reg","reg","reg","reg","reg","reg","reg","reg",},
-				{"reg","reg","reg","reg","reg","3l","reg","3",}};
+						{"reg","reg","reg","reg","reg","reg","2l","reg"},
+						{"reg","reg","reg","reg","1l","reg","reg","reg"},
+						{"reg","reg","reg","reg","reg","reg","reg","reg",},
+						{"leftWall","reg","reg","reg","reg","reg","reg","reg",},
+						{"reg","reg","4l","reg","reg","reg","reg","reg",},
+						{"reg","reg","reg","reg","reg","reg","reg","reg",},
+						{"reg","reg","reg","reg","reg","3l","reg","3",}};
 		@Override
 		String[][] getMap(){
 			return map;
@@ -644,6 +644,8 @@ public class GamePanel extends JPanel {
 	}
 
 	class SimplePanel4 extends MapPanel{
+		
+		//By default, each panel is stored like 1A in simple.png, in the equivalent Cartesian quadrant 2.
 
 		int panelNum = 4;
 		public int panelLocation = 2;//in Quadrants
@@ -652,9 +654,10 @@ public class GamePanel extends JPanel {
 			super();
 		}
 
-		//This an 8x8 Array used to store the board.
-		//To access a piece, call map[i][j] where i in the positive x direction
-		//and j is in the negative y value. In other words, map in in quadrant 4 by default
+		//This an 8x8 Matrix used to store the board.
+		//Note: This Matrix looks transposed compared to the drawn boards. This is intended. The first row is actually the first column to be drawn.
+		//To access a piece, call map[i][j] where i is in the positive x direction
+		//and j is in the negative y value. (map[0][0] = "reg" , map[7][7] = "4")
 		
 
 		String[][] map = {{"reg","reg","reg","reg","reg","reg","bottomWall","reg"},
@@ -695,6 +698,7 @@ public class GamePanel extends JPanel {
 	}
 	//TODO: Add complex board logic
 	class complexPanel1{
+		
 
 	}
 	//TODO: Add complex board logic
