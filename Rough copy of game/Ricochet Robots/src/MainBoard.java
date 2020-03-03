@@ -5,7 +5,7 @@ import javax.swing.JFrame;
 import javax.swing.Timer;
 
 public class MainBoard extends JFrame implements ActionListener{
-	
+	//
 
 	Timer timer = new Timer(100, this);
 	StartupPanel startupPanel = null;
