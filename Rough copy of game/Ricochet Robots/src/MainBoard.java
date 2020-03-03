@@ -20,8 +20,21 @@ public class MainBoard extends JFrame implements ActionListener{
 		setResizable(false); //Ensure size of program can't be changed on the fly by the user
 		setVisible(true); //Jframe.isVisible() = false for new object
 		
+		
+		
+		startupPanel = new StartupPanel();
+		getContentPane().add(startupPanel);
+		startupPanel.startButton.addActionListener(this);
+		startupPanel.settingsButton.addActionListener(this);
+		startupPanel.loadButton.addActionListener(this);
+		startupPanel.exitButton.addActionListener(this);
+		
+		players = new PlayersPanel();
+		
+		
+		
+		
 		timer.start();
-		//Called last to ensure proper look
 	}
 	
 	StartupPanel setUpGame(){
@@ -38,19 +51,11 @@ public class MainBoard extends JFrame implements ActionListener{
 	SettingsPanel openSettings() {
 		
 		SettingsPanel settings = new SettingsPanel();
-		getContentPane().remove(startupPanel);
-		getContentPane().add(settings);
-		settings.backButton.addActionListener(this);
+		
 		return settings;
 	}
 	
-	PlayersPanel newGame(){	
-		
-		getContentPane().remove(startupPanel);
-		PlayersPanel players = new PlayersPanel();
-		getContentPane().add(players);
-		return players;
-	}
+
 	
 	GamePanel newGamePanel(String config,PlayersPanel players){
 		GamePanel gameP = new GamePanel(config,players);
@@ -62,62 +67,74 @@ public class MainBoard extends JFrame implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
-		
-		if(startupPanel == null &&gamePanel == null ) {
-			startupPanel = setUpGame();
-		}
+
 		
 		//setupPanel logic
-		if(e.getSource().equals(startupPanel.startButton)) {
-			startupPanel.complete = true;
+		
+		//startupPanel.startButton logic
+		if(startupPanel != null && e.getSource().equals(startupPanel.startButton)) {
+			
+			System.out.println("yeet");
+			players.jCombo.addActionListener(this);
+			players.startSimpleButton.addActionListener(this);
+			players.startComplexButton.addActionListener(this);
+			players.backButton.addActionListener(this);
+			getContentPane().remove(startupPanel);
+			getContentPane().add(players);
 		}
-		if(e.getSource().equals(startupPanel.loadButton)) {
+		if(startupPanel != null && e.getSource().equals(startupPanel.loadButton)) {
 			//code to trigger loading
 		}
 		
-		if(e.getSource().equals(startupPanel.settingsButton)) {
-			settings = openSettings();
+		if(startupPanel != null &&e.getSource().equals(startupPanel.settingsButton)) {
+			settings = new SettingsPanel();
+			getContentPane().remove(startupPanel);
+			getContentPane().add(settings);
+			settings.backButton.addActionListener(this);
 		}
-		if(e.getSource().equals(startupPanel.exitButton)) {
+		
+		if(startupPanel != null &&e.getSource().equals(startupPanel.exitButton)) {
 			System.exit(0);
 		}
 		//
 		
 		//SettingsPanel logic
 		
-		if(settings != null && e.getSource().equals(settings.backButton)) {
-			remove(settings);
-			add(startupPanel);
-		}
+	//	if(settings != null && e.getSource().equals(settings.backButton)) {
+		//	remove(settings);
+		//	add(startupPanel);
+		//}
 		//
 		
-		if(startupPanel != null && startupPanel.complete == true && players == null) {
+		//if(startupPanel != null && e.getSource().equals(startupPanel.startButton)) {
 			
-			players = newGame();
-			players.jCombo.addActionListener(this);
-			players.startSimpleButton.addActionListener(this);
-			players.startComplexButton.addActionListener(this);
 			
-		}
 		
-		if(players != null && e.getSource().equals(players.jCombo)) {
-			players.test();
-		}
+			
+		//}
+		//if(players != null && e.getSource().equals(players.backButton)) {
+		//	remove(players);
 		
-		if(players != null&& e.getSource().equals(players.startSimpleButton)) {
+		//	add(startupPanel);
+		//}
+		//if(players != null && e.getSource().equals(players.jCombo)) {
+		//	players.update();
+		//}
+		
+		//if(players != null&& e.getSource().equals(players.startSimpleButton)) {//if players is displayed and the user clicks the start simple button
 			
-			remove(players);
-			gamePanel = newGamePanel("simple",players);
-			add(gamePanel);
+		//	remove(players);
+		//	gamePanel = newGamePanel("simple",players);
+		//	add(gamePanel);
 			
-		}
-		if(players != null&& e.getSource().equals(players.startComplexButton)) {
+		//}
+		//if(players != null&& e.getSource().equals(players.startComplexButton)) {//if players is displayed and the user clicks the start complex button
 			
-			remove(players);
-			gamePanel = newGamePanel("complex",players);
-			add(gamePanel);
+		//	remove(players);
+		//	gamePanel = newGamePanel("complex",players);
+		//	add(gamePanel);
 			
-		}
+		//}
 		repaint();
 		pack(); 
 		

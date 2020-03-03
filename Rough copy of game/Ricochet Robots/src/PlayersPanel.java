@@ -15,6 +15,7 @@ public class PlayersPanel extends JPanel{
 	JTextField nameLabel = new JTextField("Choose number of players: ");
 	JButton startSimpleButton = new JButton("Start Simple");
 	JButton startComplexButton = new JButton("Start Complex");
+	JButton backButton = new JButton("Back");
 	
 	Player player1 = new Player();
 	Player player2 = new Player();
@@ -27,12 +28,11 @@ public class PlayersPanel extends JPanel{
 		setPreferredSize(new Dimension(400,600));
 		nameLabel.setEditable(false);
 		add(nameLabel);
-		add(jCombo);
-		
-		test();
+		add(jCombo);	
+		update();
 	}
 	
-	void test() {
+	void update() {
 		
 		if(jCombo.getSelectedItem().equals("1")) {
 			for(Component comp: getComponents()) {
@@ -81,6 +81,7 @@ public class PlayersPanel extends JPanel{
 		
 		add(startSimpleButton);
 		add(startComplexButton);
+		add(backButton);
 	}
 		
 	

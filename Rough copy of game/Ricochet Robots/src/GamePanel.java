@@ -3,7 +3,9 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -37,7 +39,9 @@ public class GamePanel extends JPanel {
 		
 
 		}else {
-			createComplex();
+			mapLayout = complexMapPanel();
+			String[][] mapGen = buildMap(mapLayout);
+			frame =createFrame(mapGen);
 
 		}
 		
@@ -60,7 +64,16 @@ public class GamePanel extends JPanel {
 				g.drawImage(frame, 0, 0, null);
 			}
 		}
-		
+		if(boardType.equals("complex")) {
+			
+			if(frame == null) {
+				String[][] mapGen = buildMap(mapLayout);
+				frame =createFrame(mapGen);
+				
+			}else {
+				g.drawImage(frame, 0, 0, null);
+			}
+		}
 
 	}
 
@@ -88,7 +101,7 @@ public class GamePanel extends JPanel {
 		//Paints the piece on to a smaller image that can be added to for players and other on board effects later
 		BufferedImage generateMapPiece() { //Rectangles are a temporary fix until we get graphics to replace
 			//TODO: Add complex board logic
-			Graphics g = getGraphics();
+			Graphics2D g = (Graphics2D) getGraphics();
 			
 			if(pieceType.equals("reg")) {
 				
@@ -170,6 +183,38 @@ public class GamePanel extends JPanel {
 				g.drawString("4",10,30);
 				
 			}
+			if(pieceType.equals("1D")) {
+				g.setColor(Color.WHITE);
+				g.fillRect(0, 0, SCREENSIZE.width/20-1,SCREENSIZE.height/20-1);
+				g.setColor(Color.BLACK);
+				g.setFont(new Font("TimesRoman", Font.PLAIN, SCREENSIZE.width/50)); 
+				g.drawString("1D",10,30);
+				
+			}
+			if(pieceType.equals("2D")) {
+				g.setColor(Color.WHITE);
+				g.fillRect(0, 0, SCREENSIZE.width/20-1,SCREENSIZE.height/20-1);
+				g.setColor(Color.BLACK);
+				g.setFont(new Font("TimesRoman", Font.PLAIN, SCREENSIZE.width/50)); 
+				g.drawString("2D",10,30);
+				
+			}
+			if(pieceType.equals("3D")) {
+				g.setColor(Color.WHITE);
+				g.fillRect(0, 0, SCREENSIZE.width/20-1,SCREENSIZE.height/20-1);
+				g.setColor(Color.BLACK);
+				g.setFont(new Font("TimesRoman", Font.PLAIN, SCREENSIZE.width/50)); 
+				g.drawString("3D",10,30);
+				
+			}
+			if(pieceType.equals("4D")) {
+				g.setColor(Color.WHITE);
+				g.fillRect(0, 0, SCREENSIZE.width/20-1,SCREENSIZE.height/20-1);
+				g.setColor(Color.BLACK);
+				g.setFont(new Font("TimesRoman", Font.PLAIN, SCREENSIZE.width/50)); 
+				g.drawString("4D",10,30);
+				
+			}
 			if(pieceType.equals("bottomWall")) {
 				g.setColor(Color.LIGHT_GRAY);
 				g.fillRect(0, 0, SCREENSIZE.width/20-1,SCREENSIZE.height/20-1);
@@ -204,6 +249,37 @@ public class GamePanel extends JPanel {
 				
 				g.fillRect(0,0,SCREENSIZE.width/20-1,SCREENSIZE.height/80-1);
 			}
+			if(pieceType.substring(1).equals("24")) {//TODO: Add logic for color
+				g.setColor(Color.LIGHT_GRAY);
+				g.fillRect(0, 0, SCREENSIZE.width/20-1,SCREENSIZE.height/20-1);
+				Rectangle rect = new Rectangle(0,0-SCREENSIZE.height/200-1, SCREENSIZE.width/10-1,SCREENSIZE.height/80-1);
+				AffineTransform at = g.getTransform();
+				g.setTransform(AffineTransform.getRotateInstance(Math.PI /4));
+				g.setColor(getColor(String.valueOf(pieceType.charAt(0))));
+				g.fill(rect);
+				g.setTransform(at);
+				//g.setColor(Color.BLACK);
+				//g.setFont(new Font("TimesRoman", Font.PLAIN, SCREENSIZE.width/100)); 
+				//g.drawString("24",20,30);
+				
+				//g.fillRect(0,0,SCREENSIZE.width/20-1,SCREENSIZE.height/80-1);
+			}
+			if(pieceType.substring(1).equals("13")) {//TODO: Add logic for color
+				g.setColor(Color.LIGHT_GRAY);
+				g.fillRect(0, 0, SCREENSIZE.width/20-1,SCREENSIZE.height/20-1);
+				Rectangle rect = new Rectangle(-SCREENSIZE.width/10-1,SCREENSIZE.height/33-1, SCREENSIZE.width/1-1,SCREENSIZE.height/80-1);
+				AffineTransform at = g.getTransform();
+				g.setTransform(AffineTransform.getRotateInstance(-Math.PI/4));
+				g.setColor(getColor(String.valueOf(pieceType.charAt(0))));
+				g.fill(rect);
+				g.setTransform(at);
+				//g.setColor(Color.BLACK);
+				//g.setFont(new Font("TimesRoman", Font.PLAIN, SCREENSIZE.width/100)); 
+				//g.drawString("24",20,30);
+				
+				//g.fillRect(0,0,SCREENSIZE.width/20-1,SCREENSIZE.height/80-1);
+			}
+			
 			
 			return this;
 			
@@ -211,7 +287,23 @@ public class GamePanel extends JPanel {
 		
 	}
 	
-	
+	Color getColor(String c) {
+		
+		if("b".equals(c)) {
+			return Color.BLUE;
+		}
+		if("g".equals(c)) {
+			return Color.GREEN;
+		}
+		if("y".equals(c)) {
+			return Color.YELLOW;
+		}
+		if("r".equals(c)) {
+			return Color.red;
+		}
+		return Color.red;
+		
+	}
 	
 	
 
@@ -316,10 +408,71 @@ public class GamePanel extends JPanel {
 			return simpleMapPanel();
 		}
 	}
+	MapPanel[] complexMapPanel() {// Recursively creates mapLayout randomly using Math.random();
 
-	void createComplex() {//copy createSimple and continue
+		if(mapIndex == 4) {
+			//Turn these on to hard code the map layout to mp1,mp2,mp3,mp4
+			//mapLayout[0] = new SimplePanel1(); 
+			//mapLayout[1] = new SimplePanel2(); 
+			//mapLayout[2] = new SimplePanel3(); 
+			//mapLayout[3] = new SimplePanel4(); 
+			return mapLayout;
 
+		}else {
+			double rnd =Math.random();
+			
+
+			//1
+			if(0 <= rnd && rnd <= .25) {			
+				for(MapPanel mp : mapLayout) {
+					if(mp != null && mp.getClass().equals(ComplexPanel1.class)) {
+						return complexMapPanel();			
+					}
+				}
+				mapLayout[mapIndex]= new ComplexPanel1(); 
+				System.out.println(":1D");
+				mapIndex++;	
+			}
+			//2
+			if(.25 < rnd && rnd <= .5) {
+				for(MapPanel mp : mapLayout) {
+					if(mp != null && mp.getClass().equals(ComplexPanel2.class)) {
+						return complexMapPanel();			
+					}
+				}
+				mapLayout[mapIndex] = new ComplexPanel2(); 
+				System.out.println(":2D");
+				mapIndex++;
+			}
+			//3
+			if(.5 < rnd && rnd <= .75) {
+				for(MapPanel mp : mapLayout) {
+					if(mp != null && mp.getClass().equals(ComplexPanel3.class)) {
+						return complexMapPanel();			
+					}
+				}
+				mapLayout[mapIndex] = new ComplexPanel3(); 
+				System.out.println(":3D");
+				mapIndex++;
+			}
+			//4
+			if(.75 < rnd && rnd <= 1) {
+				for(MapPanel mp : mapLayout) {
+					if(mp != null && mp.getClass().equals(ComplexPanel4.class)) {
+						return complexMapPanel();
+
+					}
+				}
+				mapLayout[mapIndex] = new ComplexPanel4(); 
+				System.out.println(":4D");
+				mapIndex++;
+			}
+			
+			return complexMapPanel();
+		}
 	}
+
+
 	//Takes a map layout and create a 16x16 GameMap of type String[][]
 	String[][] buildMap(MapPanel[] mapLayout ){
 
@@ -396,37 +549,56 @@ public class GamePanel extends JPanel {
 				toReturn[i][7] = toRotate.getMap()[7][size-i];
 
 			}
-			int indexI=0;
+			
 			int indexJ=0;
+			
 			//We need to rotate the MapPieces as well
 			for(String[] toRetur: toReturn) {
-				indexI=0;
+				int indexI=0;
 				for(String toRetu: toRetur) {
 					
 					//TODO: Add complex board logic (Diagonal)
 					if(toRetu.equals("topWall")) {
 						toReturn[indexJ][indexI] ="rightWall";
+						//break;
 					}
 					if(toRetu.equals("rightWall")) {
 						toReturn[indexJ][indexI] ="bottomWall";
+						//break;
 					}
 					if(toRetu.equals("bottomWall")) {
 						toReturn[indexJ][indexI] ="leftWall";
+						//break;
 					}
 					if(toRetu.equals("leftWall")) {
 						toReturn[indexJ][indexI] ="topWall";
+						//break;
 					}
 					if(toRetu.equals("1l")) {
 						toReturn[indexJ][indexI] ="4l";
+						//break;
 					}
 					if(toRetu.equals("4l")) {
 						toReturn[indexJ][indexI] ="3l";
+						//break;
 					}
 					if(toRetu.equals("3l")) {
 						toReturn[indexJ][indexI] ="2l";
+						//break;
 					}
 					if(toRetu.equals("2l")) {
 						toReturn[indexJ][indexI] ="1l";
+						//break;
+					}
+					if(toRetu.substring(1).equals("24")) {
+						System.out.println(String.valueOf(toRetu.charAt(0)).concat("24"));
+						toReturn[indexJ][indexI] = String.valueOf(toRetu.charAt(0)).concat("13");
+						
+					}
+					if(toRetu.substring(1).equals("13")) {
+						System.out.println(String.valueOf(toRetu.charAt(0)).concat("13"));
+						toReturn[indexJ][indexI] =String.valueOf(toRetu.charAt(0)).concat("24");
+						
 					}
 					indexI++;
 				}
@@ -500,14 +672,14 @@ public class GamePanel extends JPanel {
 		//To access a piece, call map[i][j] where i is in the positive x direction
 		//and j is in the negative y value. (map[0][0] = "reg" , map[7][7] = "1")
 
-		String[][] map = {{"reg","reg","reg","reg","reg","bottomWall","reg","reg"},
+		String[][] map = {{"reg","reg","reg","reg","reg","bottomWall","reg","reg"},//Column 1
 						{"reg","reg","1l","reg","reg","reg","reg","reg"},
 						{"leftWall","reg","reg","reg","reg","reg","reg","reg"},
 						{"reg","reg","reg","reg","reg","reg","3l","reg",},
 						{"reg","2l","reg","reg","reg","reg","reg","reg",},
 						{"reg","reg","reg","reg","reg","reg","reg","reg",},
 						{"reg","reg","reg","4l","reg","reg","reg","reg",},
-						{"reg","reg","reg","reg","reg","reg","reg","1",}};
+						{"reg","reg","reg","reg","reg","reg","reg","1",}};//Column 8
 
 		@Override
 		String[][] getMap(){
@@ -552,14 +724,14 @@ public class GamePanel extends JPanel {
 		//To access a piece, call map[i][j] where i is in the positive x direction
 		//and j is in the negative y value. (map[0][0] = "reg" , map[7][7] = "2")
 	
-		String[][] map = {{"reg","reg","reg","bottomWall","reg","reg","reg","reg"},
+		String[][] map = {{"reg","reg","reg","bottomWall","reg","reg","reg","reg"},//Column 1
 						{"reg","reg","3l","reg","reg","reg","reg","reg"},
 						{"reg","reg","reg","reg","reg","reg","1l","reg"},
-						{"leftWall","reg","reg","reg","reg","reg","reg","reg",},
 						{"reg","reg","reg","reg","reg","reg","reg","reg",},
+						{"leftWall","reg","reg","reg","reg","reg","reg","reg",},
 						{"reg","4l","reg","reg","reg","reg","reg","reg",},
 						{"reg","reg","reg","reg","2l","reg","reg","reg",},
-						{"reg","reg","reg","reg","reg","reg","reg","2",}};
+						{"reg","reg","reg","reg","reg","reg","reg","2",}};//Column 8
 
 		@Override
 		String[][] getMap(){
@@ -606,14 +778,14 @@ public class GamePanel extends JPanel {
 		//To access a piece, call map[i][j] where i is in the positive x direction
 		//and j is in the negative y value. (map[0][0] = "reg" , map[7][7] = "3")
 
-		String[][] map = {{"reg","reg","reg","reg","bottomWall","reg","reg","reg"},
+		String[][] map = {{"reg","reg","reg","reg","bottomWall","reg","reg","reg"},//Column 1
 						{"reg","reg","reg","reg","reg","reg","2l","reg"},
 						{"reg","reg","reg","reg","1l","reg","reg","reg"},
 						{"reg","reg","reg","reg","reg","reg","reg","reg",},
 						{"leftWall","reg","reg","reg","reg","reg","reg","reg",},
 						{"reg","reg","4l","reg","reg","reg","reg","reg",},
 						{"reg","reg","reg","reg","reg","reg","reg","reg",},
-						{"reg","reg","reg","reg","reg","3l","reg","3",}};
+						{"reg","reg","reg","reg","reg","3l","reg","3",}};//Column 8
 		@Override
 		String[][] getMap(){
 			return map;
@@ -660,14 +832,14 @@ public class GamePanel extends JPanel {
 		//and j is in the negative y value. (map[0][0] = "reg" , map[7][7] = "4")
 		
 
-		String[][] map = {{"reg","reg","reg","reg","reg","reg","bottomWall","reg"},
+		String[][] map = {{"reg","reg","reg","reg","reg","reg","bottomWall","reg"},//Column 1
 						{"reg","reg","reg","1l","reg","reg","reg","reg"},
 						{"reg","reg","reg","reg","reg","4l","reg","reg"},
 						{"reg","reg","reg","reg","reg","reg","reg","reg",},
-						{"reg","reg","reg","reg","reg","reg","reg","reg",},
+						{"leftWall","reg","reg","reg","reg","reg","reg","reg",},
 						{"reg","reg","reg","reg","2l","reg","reg","reg",},
 						{"reg","3l","reg","reg","reg","reg","reg","reg",},
-						{"reg","reg","reg","reg","reg","4l","reg","4",}};
+						{"reg","reg","reg","reg","reg","4l","reg","4",}};//Column 8
 		@Override
 		String[][] getMap(){
 			return map;
@@ -696,22 +868,224 @@ public class GamePanel extends JPanel {
 			panelLocation = a;
 		}
 	}
-	//TODO: Add complex board logic
-	class complexPanel1{
+
+	class ComplexPanel1 extends MapPanel{
 		
+		//By default, each panel is stored like 1A in simple.png, in the equivalent Cartesian quadrant 2.
 
+				public int panelNum = 5;
+				public int panelLocation = 2;//in Quadrants
+
+				ComplexPanel1(){
+					super();
+
+				}
+
+				int SIZE = 8;
+
+				//This an 8x8 Matrix used to store the board.
+				//Note: This Matrix looks transposed compared to the drawn boards. This is intended. The first row is actually the first column to be drawn.
+				//To access a piece, call map[i][j] where i is in the positive x direction
+				//and j is in the negative y value. (map[0][0] = "reg" , map[7][7] = "1")
+
+				String[][] map = {{"reg","reg","reg","reg","reg","bottomWall","reg","reg"},//Column 1
+								{"reg","reg","reg","2l","reg","reg","reg","reg"},
+								{"reg","reg","reg","reg","reg","reg","topWall","reg"},
+								{"reg","reg","reg","reg","reg","reg","3l","reg",},
+								{"reg","g13","reg","reg","reg","reg","reg","reg",},
+								{"reg","reg","reg","reg","reg","reg","reg","y24",},
+								{"leftWall","reg","reg","reg","4l","reg","reg","reg",},
+								{"reg","reg","reg","reg","reg","reg","reg","1D",}};//Column 8
+
+				@Override
+				String[][] getMap(){
+					return map;
+
+				}
+				@Override
+				int getPanelNum() {
+					return panelNum;
+
+				}
+
+				@Override
+				void setMap(String[][] newMap) {
+					map = newMap;
+
+				}
+				@Override
+				int getPanelLocation() {
+					return panelLocation;
+				}
+				@Override
+				void setPanelLocation(int a) {
+
+					panelLocation = a;
+				}
 	}
-	//TODO: Add complex board logic
-	class complexPanel2{
+	
+	class ComplexPanel2 extends MapPanel{
 
+		//By default, each panel is stored like 1A in simple.png, in the equivalent Cartesian quadrant 2.
+
+		public int panelNum = 6;
+		public int panelLocation = 2;//in Quadrants
+
+		ComplexPanel2(){
+			super();
+
+		}
+
+		int SIZE = 8;
+
+		//This an 8x8 Matrix used to store the board.
+		//Note: This Matrix looks transposed compared to the drawn boards. This is intended. The first row is actually the first column to be drawn.
+		//To access a piece, call map[i][j] where i is in the positive x direction
+		//and j is in the negative y value. (map[0][0] = "reg" , map[7][7] = "1")
+
+		String[][] map = {{"reg","reg","reg","reg","reg","reg","bottomWall","reg"},//Column 1
+						{"reg","reg","reg","reg","reg","3l","reg","reg"},
+						{"reg","b13","reg","reg","reg","reg","reg","reg"},
+						{"leftWall","reg","reg","reg","reg","reg","reg","reg",},
+						{"reg","reg","reg","reg","reg","reg","reg","1l",},
+						{"reg","reg","4l","reg","reg","reg","reg","reg",},
+						{"reg","reg","topWall","reg","reg","reg","reg","reg",},
+						{"reg","reg","reg","reg","r24","reg","reg","2D",}};//Column 8
+
+		@Override
+		String[][] getMap(){
+			return map;
+
+		}
+		@Override
+		int getPanelNum() {
+			return panelNum;
+
+		}
+
+		@Override
+		void setMap(String[][] newMap) {
+			map = newMap;
+
+		}
+		@Override
+		int getPanelLocation() {
+			return panelLocation;
+		}
+		@Override
+		void setPanelLocation(int a) {
+
+			panelLocation = a;
+		}
 	}
-	//TODO: Add complex board logic
-	class complexPanel3{
+	
+	class ComplexPanel3 extends MapPanel{
+		//By default, each panel is stored like 1A in simple.png, in the equivalent Cartesian quadrant 2.
 
+		public int panelNum = 7;
+		public int panelLocation = 2;//in Quadrants
+
+		ComplexPanel3(){
+			super();
+
+		}
+
+		int SIZE = 8;
+
+		//This an 8x8 Matrix used to store the board.
+		//Note: This Matrix looks transposed compared to the drawn boards. This is intended. The first row is actually the first column to be drawn.
+		//To access a piece, call map[i][j] where i is in the positive x direction
+		//and j is in the negative y value. (map[0][0] = "reg" , map[7][7] = "1")
+
+		String[][] map = {{"reg","reg","bottomWall","reg","reg","reg","reg","reg"},//Column 1
+						{"reg","reg","reg","reg","reg","reg","reg","reg"},
+						{"reg","reg","reg","reg","1l","reg","reg","reg"},
+						{"reg","reg","reg","reg","bottomWall","reg","reg","reg",},
+						{"reg","b24","reg","reg","reg","reg","reg","reg",},
+						{"leftWall","reg","reg","reg","reg","reg","2l","reg",},
+						{"reg","reg","4l","y24","reg","reg","reg","reg",},
+						{"reg","reg","reg","reg","reg","reg","reg","3D",}};//Column 8
+
+		@Override
+		String[][] getMap(){
+			return map;
+
+		}
+		@Override
+		int getPanelNum() {
+			return panelNum;
+
+		}
+
+		@Override
+		void setMap(String[][] newMap) {
+			map = newMap;
+
+		}
+		@Override
+		int getPanelLocation() {
+			return panelLocation;
+		}
+		@Override
+		void setPanelLocation(int a) {
+
+			panelLocation = a;
+		}
 	}
-	//TODO: Add complex board logic
-	class complexPanel4{
+	
+	class ComplexPanel4 extends MapPanel{
+		
+		//By default, each panel is stored like 1A in simple.png, in the equivalent Cartesian quadrant 2.
 
+		public int panelNum = 8;
+		public int panelLocation = 2;//in Quadrants
+
+		ComplexPanel4(){
+			super();
+
+		}
+
+		int SIZE = 8;
+
+		//This an 8x8 Matrix used to store the board.
+		//Note: This Matrix looks transposed compared to the drawn boards. This is intended. The first row is actually the first column to be drawn.
+		//To access a piece, call map[i][j] where i is in the positive x direction
+		//and j is in the negative y value. (map[0][0] = "reg" , map[7][7] = "1")
+
+		String[][] map = {{"reg","reg","reg","reg","reg","reg","bottomWall","reg"},//Column 1
+						{"reg","reg","reg","reg","reg","4l","reg","reg"},
+						{"reg","r24","reg","topWall","reg","reg","reg","reg"},
+						{"reg","reg","reg","3l","reg","reg","g24","reg",},
+						{"reg","reg","reg","reg","reg","reg","reg","reg",},
+						{"leftWall","reg","reg","reg","reg","reg","reg","4l",},
+						{"reg","reg","2l","reg","reg","reg","reg","reg",},
+						{"reg","reg","reg","reg","reg","reg","reg","4D",}};//Column 8
+
+		@Override
+		String[][] getMap(){
+			return map;
+
+		}
+		@Override
+		int getPanelNum() {
+			return panelNum;
+
+		}
+
+		@Override
+		void setMap(String[][] newMap) {
+			map = newMap;
+
+		}
+		@Override
+		int getPanelLocation() {
+			return panelLocation;
+		}
+		@Override
+		void setPanelLocation(int a) {
+
+			panelLocation = a;
+		}
 	}
 
 	
