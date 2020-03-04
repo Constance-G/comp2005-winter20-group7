@@ -13,7 +13,7 @@ import javax.swing.JTextField;
 public class GamePanel extends JPanel {
 
 	//Dimension SCREENSIZE = Toolkit.getDefaultToolkit().getScreenSize();
-	Dimension SCREENSIZE = new Dimension(1000,1000);
+	static final Dimension SCREENSIZE = new Dimension(1000,1000);
 	String boardType;
 
 	
@@ -26,9 +26,9 @@ public class GamePanel extends JPanel {
 		
 		boardType = config;
 		//The Game string
-		String theGame = "theGame";
-		JTextField jtb = new JTextField(theGame);
-		add(jtb, BorderLayout.AFTER_LINE_ENDS);
+		//String theGame = "theGame";
+		//JTextField jtb = new JTextField(theGame);
+		//add(jtb, BorderLayout.AFTER_LINE_ENDS);
 		//
 
 		if(config.equals("simple")) {
@@ -344,6 +344,7 @@ public class GamePanel extends JPanel {
 
 	int mapIndex = 0;
 	MapPanel[] mapLayout = new MapPanel[4];
+	public boolean isBettingRound = false;
 
 	MapPanel[] simpleMapPanel() {// Recursively creates mapLayout randomly using Math.random();
 

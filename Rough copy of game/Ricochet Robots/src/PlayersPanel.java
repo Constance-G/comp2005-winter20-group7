@@ -32,19 +32,36 @@ public class PlayersPanel extends JPanel{
 		update();
 	}
 	
+	Player[] getPlayerArray() {
+		
+		if(jCombo.getSelectedItem().equals("2")) {
+			Player[] players = new Player[2];
+			players[0] = player1;
+			players[1] = player2;
+			return players;
+		}
+		if(jCombo.getSelectedItem().equals("3")) {
+			Player[] players = new Player[3];
+			players[0] = player1;
+			players[1] = player2;
+			players[2] = player3;
+			return players;
+		}
+		if(jCombo.getSelectedItem().equals("4")) {
+			Player[] players = new Player[4];
+			players[0] = player1;
+			players[1] = player2;
+			players[2] = player3;
+			players[3] = player4;
+			return players;
+		}
+		return null;
+		
+	}
+	
 	void update() {
 		
-		if(jCombo.getSelectedItem().equals("1")) {
-			for(Component comp: getComponents()) {
-				if(!comp.equals(jCombo)&& !comp.equals(nameLabel)) {
-					remove(comp);
-				}
-			}
 		
-			add(player1.congif);
-			
-			System.out.println("1");
-		}
 		if(jCombo.getSelectedItem().equals("2")) {
 			for(Component comp: getComponents()) {
 				if(!comp.equals(jCombo)&& !comp.equals(nameLabel)) {

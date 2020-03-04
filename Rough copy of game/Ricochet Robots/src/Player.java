@@ -2,7 +2,7 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 
-
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -12,10 +12,32 @@ public class Player {
 	boolean isHuman;
 	int tokens;
 	PlayerConfig congif = null;
+	PlayerBet bet = null;
 	
 	Player(){
 		congif = new PlayerConfig();
 	}
+	
+	PlayerBet getPlayerBet(Dimension size) {
+		bet = new PlayerBet(size);
+		return bet;
+
+	}
+	
+	class PlayerBet extends JPanel{
+		
+		PlayerBet(Dimension size){
+			
+			setVisible(true);
+			setPreferredSize(new Dimension(size.getSize().width,size.getSize().height/4));
+			JButton button = new JButton("Test");
+			add(button);
+			System.out.println("test");
+			
+		}
+		
+	}
+	
 	
 	class PlayerConfig extends JPanel{
 		

@@ -1,3 +1,4 @@
+import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -11,13 +12,14 @@ public class MainBoard extends JFrame implements ActionListener{
 	StartupPanel startupPanel = null;
 	GamePanel gamePanel = null;
 	SettingsPanel settings = null;
-	PlayersPanel players = null;
+	public PlayersPanel players = null;
+	BettingPanel bettingPanel;
 	
 	MainBoard(){
 		
 		System.out.println("MainBoard.MainBoard()");
 		
-		setResizable(false); //Ensure size of program can't be changed on the fly by the user
+		//setResizable(false); //Ensure size of program can't be changed on the fly by the user
 		setVisible(true); //Jframe.isVisible() = false for new object
 		
 		
@@ -97,6 +99,9 @@ public class MainBoard extends JFrame implements ActionListener{
 		if(players != null && e.getSource().equals(players.jCombo)) {
 			players.update();
 		}
+		
+		
+		
 		//Code to handle when user presses players.startSimpleButton
 		if(players != null&& e.getSource().equals(players.startSimpleButton)) {//if players is displayed and the user clicks the start simple button
 			
@@ -104,7 +109,9 @@ public class MainBoard extends JFrame implements ActionListener{
 			gamePanel = new GamePanel("simple",players);
 			add(gamePanel);
 			
+			
 		}
+		
 		//Code to handle when user presses players.startComplexButton
 		if(players != null&& e.getSource().equals(players.startComplexButton)) {//if players is displayed and the user clicks the start complex button
 			
@@ -114,6 +121,18 @@ public class MainBoard extends JFrame implements ActionListener{
 			
 		}
 		//end PlanersPanel logic
+		
+		
+		//GamePanel logic
+		if(gamePanel != null && bettingPanel == null && gamePanel.isBettingRound == true) {
+			bettingPanel = new BettingPanel(players.getPlayerArray());
+			add(bettingPanel,BorderLayout.EAST);
+		}
+		if(gamePanel != null && bettingPanel != null && gamePanel.isBettingRound == true) {
+			
+		}
+		
+		//end GamePanel logic
 		repaint();
 		pack(); 
 		
