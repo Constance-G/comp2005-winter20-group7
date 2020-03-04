@@ -7,21 +7,50 @@ import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class Player {
+public class Player {//Maybe extend this into Human player and Computer Player
 	
-	boolean isHuman;
+
 	int tokens;
-	PlayerConfig congif = null;
-	PlayerBet bet = null;
+	String name;
+	PlayerConfig configDisplay = null;
+	PlayerBet betDisplay = null;
+	InGameDisplay gameDisplay = null;
 	
 	Player(){
-		congif = new PlayerConfig();
+		configDisplay = new PlayerConfig();
+	}
+	
+	Player(boolean forceHuman){//This constructor is used for player 1 to make sure only human can be selected from the JComboBox
+		//TODO: This could use a some refining
+		configDisplay = new PlayerConfig(forceHuman);//Displays PlayerConfig with only "Human" available for selection
+	}
+	
+	PlayerConfig getPlayerConfig() {
+		return configDisplay;
+		
 	}
 	
 	PlayerBet getPlayerBet(Dimension size) {
-		bet = new PlayerBet(size);
-		return bet;
+		betDisplay = new PlayerBet(size);
+		return betDisplay;
 
+	}
+	
+	InGameDisplay getInGameDisplay(){
+		
+		return new InGameDisplay();
+	}
+	
+	
+	class InGameDisplay extends JPanel{
+		
+		
+		
+		InGameDisplay(){
+	
+			
+		}
+		
 	}
 	
 	class PlayerBet extends JPanel{
@@ -61,6 +90,30 @@ public class Player {
 			nameLabel.setEditable(false);
 			add(nameLabel);
 			add(name);
+		}
+		
+		PlayerConfig(boolean forceHuman){//TODO: This could use a some refining
+			//Used to force Human option
+			players = new String[] {"Human"};
+			jCombo = new JComboBox<String>(players);
+			//
+			
+			this.setLayout(new FlowLayout());
+			
+			nameLabel.setAlignmentY(Component.CENTER_ALIGNMENT);
+			name.setAlignmentY(Component.CENTER_ALIGNMENT);
+
+			setPreferredSize(new Dimension(400,120));
+			add(jCombo);
+			
+			nameLabel.setEditable(false);
+			add(nameLabel);
+			add(name);
+		}
+		
+		void forceHuman() {//Used with the PlayerConfig(boolean forceHuman) constructor to force human selection
+			
+			
 		}
 		
 		class PlayerName extends JTextField{

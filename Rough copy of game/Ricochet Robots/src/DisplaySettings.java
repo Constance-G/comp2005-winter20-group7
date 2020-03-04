@@ -6,12 +6,12 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-public class SettingsPanel extends JPanel{
+public class DisplaySettings extends JPanel{
 
 	boolean done = true;
 	JButton backButton = new JButton("Back");
 	
-	SettingsPanel(){
+	DisplaySettings(){
 		setPreferredSize(new Dimension(400,600));
 		setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
 		

@@ -6,7 +6,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-public class StartupPanel extends JPanel{
+public class LaunchPanel extends JPanel{
 
 	JButton startButton = new JButton("New Game");
 	JButton loadButton = new JButton("Load Game");
@@ -15,7 +15,7 @@ public class StartupPanel extends JPanel{
 	
 	public boolean complete = false;
 
-	StartupPanel(){
+	LaunchPanel(){
 		
 		setPreferredSize(new Dimension(400,400));
 		

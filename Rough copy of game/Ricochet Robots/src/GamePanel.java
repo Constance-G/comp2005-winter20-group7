@@ -8,16 +8,15 @@ import java.awt.Rectangle;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 
-public class GamePanel extends JPanel {
+public class GamePanel extends JPanel {//Refactored from GamePanel
 
 	//Dimension SCREENSIZE = Toolkit.getDefaultToolkit().getScreenSize();
 	static final Dimension SCREENSIZE = new Dimension(1000,1000);
 	String boardType;
 
 	
-	GamePanel(String config,PlayersPanel players){
+	GamePanel(String config,PlayersSetup players){
 		//Game Panel config
 		setPreferredSize(new Dimension((int) (SCREENSIZE.width),(int) (SCREENSIZE.height)));
 		setLayout(new BorderLayout());
@@ -25,27 +24,19 @@ public class GamePanel extends JPanel {
 
 		
 		boardType = config;
-		//The Game string
-		//String theGame = "theGame";
-		//JTextField jtb = new JTextField(theGame);
-		//add(jtb, BorderLayout.AFTER_LINE_ENDS);
-		//
+	
 
-		if(config.equals("simple")) {
+		if(config.equals("simple")) {//Creates the game in Simple formatting
 			mapLayout = simpleMapPanel();
 			String[][] mapGen = buildMap(mapLayout);
 			frame =createFrame(mapGen);
 
-		
-
-		}else {
+		}else {//Creates the game in Complex formatting
 			mapLayout = complexMapPanel();
 			String[][] mapGen = buildMap(mapLayout);
 			frame =createFrame(mapGen);
 
 		}
-		
-
 	}
 
 
@@ -98,9 +89,9 @@ public class GamePanel extends JPanel {
 			this.pieceType = ty;
 		}
 		
-		//Paints the piece on to a smaller image that can be added to for players and other on board effects later
+		//Paints the piece on to a smaller image 
 		BufferedImage generateMapPiece() { //Rectangles are a temporary fix until we get graphics to replace
-			//TODO: Add complex board logic
+			
 			Graphics2D g = (Graphics2D) getGraphics();
 			
 			if(pieceType.equals("reg")) {
@@ -249,7 +240,7 @@ public class GamePanel extends JPanel {
 				
 				g.fillRect(0,0,SCREENSIZE.width/20-1,SCREENSIZE.height/80-1);
 			}
-			if(pieceType.substring(1).equals("24")) {//TODO: Add logic for color
+			if(pieceType.substring(1).equals("24")) {
 				g.setColor(Color.LIGHT_GRAY);
 				g.fillRect(0, 0, SCREENSIZE.width/20-1,SCREENSIZE.height/20-1);
 				Rectangle rect = new Rectangle(0,0-SCREENSIZE.height/200-1, SCREENSIZE.width/10-1,SCREENSIZE.height/80-1);
@@ -264,7 +255,7 @@ public class GamePanel extends JPanel {
 				
 				//g.fillRect(0,0,SCREENSIZE.width/20-1,SCREENSIZE.height/80-1);
 			}
-			if(pieceType.substring(1).equals("13")) {//TODO: Add logic for color
+			if(pieceType.substring(1).equals("13")) {//
 				g.setColor(Color.LIGHT_GRAY);
 				g.fillRect(0, 0, SCREENSIZE.width/20-1,SCREENSIZE.height/20-1);
 				Rectangle rect = new Rectangle(-SCREENSIZE.width/10-1,SCREENSIZE.height/33-1, SCREENSIZE.width/1-1,SCREENSIZE.height/80-1);
@@ -337,7 +328,7 @@ public class GamePanel extends JPanel {
 				
 			}
 		}
-		//TODO: to add players and goals
+		//TODO: Add players and goals
 		return toDisplay;
 
 	}
@@ -474,7 +465,7 @@ public class GamePanel extends JPanel {
 	}
 
 
-	//Takes a map layout and create a 16x16 GameMap of type String[][]
+	//Takes an array MapPanel[] and create a 16x16 GameMap of type String[][]
 	String[][] buildMap(MapPanel[] mapLayout ){
 
 		String[][] map = new String[16][16];
@@ -558,7 +549,7 @@ public class GamePanel extends JPanel {
 				int indexI=0;
 				for(String toRetu: toRetur) {
 					
-					//TODO: Add complex board logic (Diagonal)
+					
 					if(toRetu.equals("topWall")) {
 						toReturn[indexJ][indexI] ="rightWall";
 						//break;

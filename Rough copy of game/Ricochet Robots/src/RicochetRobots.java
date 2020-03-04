@@ -11,7 +11,7 @@ public class RicochetRobots implements Runnable{
 	@Override
 	public void run() {
 		
-		new MainBoard();
+		new GameBoard();
 		
 	}	
 	
