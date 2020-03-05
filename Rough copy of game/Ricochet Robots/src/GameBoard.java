@@ -55,6 +55,9 @@ public class GameBoard extends JFrame implements ActionListener{
 			playersPanel.startSimpleButton.addActionListener(this);
 			playersPanel.startComplexButton.addActionListener(this);
 			playersPanel.backButton.addActionListener(this);
+			for(Player play :playersPanel.getPlayerArray()) {//adding these so the difficultly button can be added when "Computer" is selected
+				play.getPlayerConfig().playerType.addActionListener(this);
+			}
 			getContentPane().remove(launchPanel);
 			getContentPane().add(playersPanel);
 		}
@@ -85,7 +88,7 @@ public class GameBoard extends JFrame implements ActionListener{
 		//end SettingsPanel logic
 		
 		
-		//PlayerPanel logic
+		//PlayerSetup logic
 		//Code to handle when user presses players.backButton
 		if(playersPanel != null && e.getSource().equals(playersPanel.backButton)) {
 			remove(playersPanel);
@@ -117,7 +120,19 @@ public class GameBoard extends JFrame implements ActionListener{
 			add(gamePanel);
 			
 		}
-		//end PlanersPanel logic
+		
+		//This causes the difficultly settings to be added to playerSetup when switching from human to computer
+		if(e.getSource().equals(playersPanel.player2.getPlayerConfig().playerType)) {
+			playersPanel.update();
+		}
+		if(e.getSource().equals(playersPanel.player3.getPlayerConfig().playerType)) {
+			playersPanel.update();
+		}
+		if(e.getSource().equals(playersPanel.player4.getPlayerConfig().playerType)) {
+			playersPanel.update();
+		}
+		
+		//end PlayersSetup logic
 		
 		
 		//GamePanel logic

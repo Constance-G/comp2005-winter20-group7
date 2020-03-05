@@ -27,38 +27,26 @@ public class PlayersSetup extends JPanel{
 		setPreferredSize(new Dimension(400,600));
 		nameLabel.setEditable(false);
 		add(nameLabel);
+		
+		jCombo.setSelectedIndex(2);//Make 4 be the default selected value
 		add(jCombo);	
+		
 		update();
 	}
 	
-	Player[] getPlayerArray() {
+	Player[] getPlayerArray() {//Returns an array of all 4 players
 		
-		if(jCombo.getSelectedItem().equals("2")) {
-			Player[] players = new Player[2];
-			players[0] = player1;
-			players[1] = player2;
-			return players;
-		}
-		if(jCombo.getSelectedItem().equals("3")) {
-			Player[] players = new Player[3];
-			players[0] = player1;
-			players[1] = player2;
-			players[2] = player3;
-			return players;
-		}
-		if(jCombo.getSelectedItem().equals("4")) {
+
 			Player[] players = new Player[4];
 			players[0] = player1;
 			players[1] = player2;
 			players[2] = player3;
 			players[3] = player4;
 			return players;
-		}
-		return null;
-		
+	
 	}
 	
-	void update() {
+	void update() { //called when object is created and when the number of players is changed
 		
 		
 		if(jCombo.getSelectedItem().equals("2")) {
@@ -100,11 +88,36 @@ public class PlayersSetup extends JPanel{
 			System.out.println("4");
 		}
 		
+		for(Player play :getPlayerArray()) {
+			//Check if the selected value is "Computer" and the difficulty settings are not displayed.
+			//If the user goes from "Human" to "Computer" need to add the computer difficultly settings. 
+			if((play.getPlayerConfig().playerType.getModel().getSelectedItem().equals("Computer")) && (play.getPlayerConfig().computerDifficulty.getParent() != play.getPlayerConfig())) {													
+				
+						play.getPlayerConfig().addComputerDifficulty();//Display difficulty settings for each player that this is true for
+			
+		
+			}	
+			   
+		}
+		for(Player play :getPlayerArray()) {
+			//Check if the selected value is "Human" and the difficulty settings are displayed as this is only needed when "Computer is selected"
+			if((play.getPlayerConfig().playerType.getModel().getSelectedItem().equals("Human")) && (play.getPlayerConfig().computerDifficulty.getParent() == play.getPlayerConfig())) {													
+				
+						play.getPlayerConfig().removeComputerDifficulty();//Remove the difficulty settings;
+						repaint();//This repaint() eliminates some weird issue with the difficultly settings not disappearing completely when human is reselected.
+			
+		
+			}	
+			   
+		}
+			
+		
 		add(startSimpleButton);
 		add(startComplexButton);
 		add(backButton);
-	}
-		
 	
+		
+		
+	}
 
 }

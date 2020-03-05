@@ -71,11 +71,14 @@ public class Player {//Maybe extend this into Human player and Computer Player
 	class PlayerConfig extends JPanel{
 		
 		String[] players = {"Human","Computer"};
-		JComboBox<String> jCombo = new JComboBox<String>(players);
+		JComboBox<String> playerType = new JComboBox<String>(players);
 		JTextField nameLabel = new JTextField("Player name: ");
 		JTextField name = new PlayerName();
+		String[] difficulty = {"Easy","Hard"};
+		JComboBox<String> computerDifficulty= new JComboBox<String>(difficulty);
 		
 		
+
 		
 		PlayerConfig(){
 			
@@ -85,17 +88,19 @@ public class Player {//Maybe extend this into Human player and Computer Player
 			name.setAlignmentY(Component.CENTER_ALIGNMENT);
 
 			setPreferredSize(new Dimension(400,120));
-			add(jCombo);
+			add(playerType);
 			
 			nameLabel.setEditable(false);
 			add(nameLabel);
 			add(name);
+			
 		}
 		
 		PlayerConfig(boolean forceHuman){//TODO: This could use a some refining
+			
 			//Used to force Human option
 			players = new String[] {"Human"};
-			jCombo = new JComboBox<String>(players);
+			playerType = new JComboBox<String>(players);
 			//
 			
 			this.setLayout(new FlowLayout());
@@ -104,19 +109,28 @@ public class Player {//Maybe extend this into Human player and Computer Player
 			name.setAlignmentY(Component.CENTER_ALIGNMENT);
 
 			setPreferredSize(new Dimension(400,120));
-			add(jCombo);
+			add(playerType);
 			
 			nameLabel.setEditable(false);
 			add(nameLabel);
 			add(name);
-		}
-		
-		void forceHuman() {//Used with the PlayerConfig(boolean forceHuman) constructor to force human selection
-			
 			
 		}
 		
-		class PlayerName extends JTextField{
+		void addComputerDifficulty(){
+			if(playerType.getModel().getSelectedItem().equals("Computer")) {
+				computerDifficulty.setAlignmentY(Component.CENTER_ALIGNMENT);
+				add(computerDifficulty);
+			}
+		}
+		void removeComputerDifficulty(){
+			if(playerType.getModel().getSelectedItem().equals("Human")) {
+				
+				remove(computerDifficulty);
+			}
+		}
+		
+		class PlayerName extends JTextField{//TODO:
 			 
 			PlayerName(){
 				setColumns(10);
