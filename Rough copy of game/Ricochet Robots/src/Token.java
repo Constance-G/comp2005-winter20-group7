@@ -8,6 +8,6 @@ public class Token {
 	int tokenNum;//Since there are 17 tokens we can organize them from 1-17
 	
 	Token(){
-		
+		 //
 	}
 }
