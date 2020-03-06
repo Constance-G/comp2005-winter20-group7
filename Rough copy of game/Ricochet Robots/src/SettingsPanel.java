@@ -17,6 +17,7 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.xml.transform.Templates;
+import javax.swing.Timer;
 
 
 public class SettingsPanel extends JPanel implements ActionListener{
@@ -33,6 +34,7 @@ public class SettingsPanel extends JPanel implements ActionListener{
 	private int fontSize = 16; //Had to Refactor to fontSize because font is a field in "Component" and JPanel is a child of Component
 	private JLabel colorJLabel = new JLabel("Select Color Palette: ");
 	private JLabel fontLabel = new JLabel("Select Font Size: ");
+	private JLabel updateMsgLabel = new JLabel("Display settings updated!");
 	
 	
 	public SettingsPanel()
@@ -53,6 +55,10 @@ public class SettingsPanel extends JPanel implements ActionListener{
 		add(Box.createRigidArea(new Dimension(0, 50)));
 		add(applyButton);
 		applyButton.addActionListener(this);
+		add(Box.createRigidArea(new Dimension(0, 10)));
+		updateMsgLabel = new JLabel("Display Settings Updated!");
+		add(updateMsgLabel);
+		updateMsgLabel.setVisible(false);
 		add(Box.createRigidArea(new Dimension(0, 20)));
 		add(backButton);
 		add(Box.createRigidArea(new Dimension(0, 20)));
@@ -64,6 +70,7 @@ public class SettingsPanel extends JPanel implements ActionListener{
 		fontSizeBox.setAlignmentX(Component.CENTER_ALIGNMENT);
 		applyButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 		titleJLabel.setAlignmentX(Component.CENTER_ALIGNMENT);		
+		updateMsgLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
 	}
 	
@@ -111,6 +118,18 @@ public class SettingsPanel extends JPanel implements ActionListener{
 			else {
 				colorCheck = false;
 			}
+			//display msg to user that settings have been updated
+			updateMsgLabel.setVisible(true);
+			Timer timer = new Timer(3000, new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					updateMsgLabel.setVisible(false);
+					
+				}
+			});
+			timer.start();
+			
 		}
 	}
 	
