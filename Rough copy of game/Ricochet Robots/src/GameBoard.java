@@ -22,6 +22,7 @@ public class GameBoard extends JFrame implements ActionListener{
 	
 	GameBoard(){
 		
+		
 		System.out.println("MainBoard.MainBoard()");
 		
 		setResizable(false); //Ensure size of program can't be changed on the fly by the user

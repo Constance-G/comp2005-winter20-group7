@@ -10,6 +10,7 @@ import javax.swing.JTextField;
 public class Player {//Maybe extend this into Human player and Computer Player
 	
 
+	
 	int tokens;
 	String name;
 	PlayerConfig configDisplay = null;

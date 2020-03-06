@@ -12,6 +12,7 @@ import java.awt.image.BufferedImage;
 
 
 
+
 class MapPiece extends BufferedImage{
 
 	private Dimension SCREENSIZE;

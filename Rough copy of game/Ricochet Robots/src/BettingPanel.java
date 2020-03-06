@@ -19,4 +19,5 @@ class BettingPanel extends JPanel{
 				add(play.getPlayerBet(getPreferredSize()));
 			}
 		}
+		
 }

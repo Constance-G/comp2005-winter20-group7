@@ -7,6 +7,7 @@ import javax.swing.JTextField;
 
 public class PlayersSetup extends JPanel{
 	
+	
 	String[] players = {"2","3","4"};
 	JComboBox<String> jCombo = new JComboBox<String>(players);
 	JTextField nameLabel = new JTextField("Choose number of players: ");

@@ -2,6 +2,7 @@
 public class RicochetRobots implements Runnable{
 	
 	
+	
 	public static void main(String[] args) {
 			
 		Thread t1 = new Thread(new RicochetRobots());

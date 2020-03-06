@@ -16,6 +16,7 @@ public class GamePanel extends JPanel {//Refactored from GamePanel
 	String boardType;
 	int fontSize;
 	
+	
 	GamePanel(String config,PlayersSetup players,boolean colorCheck,int fontSizeIn){
 		
 		setPreferredSize(new Dimension((int) (SCREENSIZE.width),(int) (SCREENSIZE.height)));

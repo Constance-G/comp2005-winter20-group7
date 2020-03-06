@@ -6,6 +6,7 @@
 
 abstract class MapPanel{ 
 
+	
 
 		String[][] map =  {{"reg","reg","reg","reg","reg","reg","reg","reg"},
 				{"reg","reg","reg","reg","reg","reg","reg","reg"},

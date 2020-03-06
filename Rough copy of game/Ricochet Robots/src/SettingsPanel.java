@@ -18,6 +18,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.xml.transform.Templates;
 
+
 public class SettingsPanel extends JPanel implements ActionListener{
 
 	private boolean done = true;

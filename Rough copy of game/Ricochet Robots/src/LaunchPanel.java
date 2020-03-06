@@ -13,6 +13,7 @@ public class LaunchPanel extends JPanel{
 	JButton settingsButton = new JButton("Settings");
 	JButton exitButton = new JButton("Exit");
 	
+	
 	public boolean complete = false;
 
 	LaunchPanel(){
