@@ -1,4 +1,5 @@
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -9,7 +10,8 @@ public class GameBoard extends JFrame implements ActionListener{
 	//
 
 	private Boolean colorCheck =  true; // true by defaultCan be modified at runtime in the SettingsPanel
-	private int fontSize = 16; // default 16. Can be modified at runtime in the SettingsPanel
+	public int fontSize = 16; // default 16. Can be modified at runtime in the SettingsPanel
+	static final Dimension SCREENSIZE = new Dimension(1000,1000);
 	
 	private Timer timer = new Timer(100, this);
 	LaunchPanel launchPanel = new LaunchPanel();
@@ -113,6 +115,7 @@ public class GameBoard extends JFrame implements ActionListener{
 		if(playersPanel != null&& e.getSource().equals(playersPanel.startSimpleButton)) {//if players is displayed and the user clicks the start simple button
 			
 			remove(playersPanel);
+			System.out.println("Xd: "+ fontSize);
 			gamePanel = new GamePanel("simple",playersPanel,colorCheck,fontSize);
 			add(gamePanel);
 			

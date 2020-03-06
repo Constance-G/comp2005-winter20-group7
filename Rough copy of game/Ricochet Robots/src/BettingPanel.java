@@ -6,7 +6,7 @@ class BettingPanel extends JPanel{
 	Dimension size;
 	
 		BettingPanel(Player[] players){
-			size = GamePanel.SCREENSIZE;
+			size = GameBoard.SCREENSIZE;
 			setPreferredSize(new Dimension(size.width-(size.width/20)*16,size.height));
 			setVisible(true);
 			addPlayers(players);
