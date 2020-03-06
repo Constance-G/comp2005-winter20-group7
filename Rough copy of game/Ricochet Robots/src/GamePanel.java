@@ -16,15 +16,12 @@ public class GamePanel extends JPanel {//Refactored from GamePanel
 	String boardType;
 
 	
-	GamePanel(String config,PlayersSetup players){
-		//Game Panel config
+	GamePanel(String config,PlayersSetup players,boolean colorCheck,int font){
+		
 		setPreferredSize(new Dimension((int) (SCREENSIZE.width),(int) (SCREENSIZE.height)));
 		setLayout(new BorderLayout());
-		//
 
-		
 		boardType = config;
-	
 
 		if(config.equals("simple")) {//Creates the game in Simple formatting
 			mapLayout = simpleMapPanel();
@@ -35,8 +32,9 @@ public class GamePanel extends JPanel {//Refactored from GamePanel
 			mapLayout = complexMapPanel();
 			String[][] mapGen = buildMap(mapLayout);
 			frame =createFrame(mapGen);
-
 		}
+		
+		
 	}
 
 

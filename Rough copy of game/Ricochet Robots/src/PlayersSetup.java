@@ -94,6 +94,7 @@ public class PlayersSetup extends JPanel{
 			if((play.getPlayerConfig().playerType.getModel().getSelectedItem().equals("Computer")) && (play.getPlayerConfig().computerDifficulty.getParent() != play.getPlayerConfig())) {													
 				
 						play.getPlayerConfig().addComputerDifficulty();//Display difficulty settings for each player that this is true for
+						repaint();//This repaint() eliminates some weird issue with the difficultly settings not appearing completely when computer is reselected.
 			
 		
 			}	

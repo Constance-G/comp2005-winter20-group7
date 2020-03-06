@@ -29,7 +29,7 @@ public class SettingsPanel extends JPanel implements ActionListener{
 	private Boolean colorCheck = true; //to track if the current setting is B&W (false) or color (true)
 	private String[] fontSizes = {"Small", "Medium", "Large"};
 	private JComboBox fontSizeBox = new JComboBox(fontSizes);
-	private int font = 16;
+	private int fontSize = 16; //Had to Refactor to fontSize because font is a field in "Component" and JPanel is a child of Component
 	private JLabel colorJLabel = new JLabel("Select Color Palette: ");
 	private JLabel fontLabel = new JLabel("Select Font Size: ");
 	
@@ -66,25 +66,35 @@ public class SettingsPanel extends JPanel implements ActionListener{
 
 	}
 	
+	public Boolean getColorCheck() {
+		return colorCheck;
+	}
+
+	public int getFontSize() {
+		return fontSize;
+	}
+
+
+
 	//method to convert the font to a numeric equivalent
 	//returns the numeric font size
 	public int updateFontSize()
-	{
-		String x = fontSizeBox.getSelectedItem().toString();
-		
-		if (x == "small") {
-			font = 12;
+	{				
+		String x = fontSizeBox.getSelectedItem().toString(); 
+			
+		if (x == "Small") {
+			fontSize = 12;
 		}
-		
-		else if (x == "medium") {
-			font = 16;
+				 
+		else if (x.equals("Medium")) {
+			fontSize = 16;
 		}
 		
 		else {
-			font = 20;
+			fontSize = 20;
 		}
 		
-		return font;
+		return fontSize;
 		
 	}
 	
@@ -92,7 +102,8 @@ public class SettingsPanel extends JPanel implements ActionListener{
 	{
 		if (event.getSource() == applyButton) {
 			String temp = colorOptionsBox.getSelectedItem().toString();
-			font = updateFontSize();
+			fontSize = updateFontSize();
+				
 			if (temp == "Full Color") {
 				colorCheck = true;
 			}
@@ -101,7 +112,6 @@ public class SettingsPanel extends JPanel implements ActionListener{
 			}
 		}
 	}
-	//TODO send colorCheck and font values when the back button is selected
 	
 
 }

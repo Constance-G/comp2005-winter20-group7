@@ -8,11 +8,14 @@ import javax.swing.Timer;
 public class GameBoard extends JFrame implements ActionListener{
 	//
 
-	Timer timer = new Timer(100, this);
+	private Boolean colorCheck =  true; // true by defaultCan be modified at runtime in the SettingsPanel
+	private int fontSize = 16; // default 16. Can be modified at runtime in the SettingsPanel
+	
+	private Timer timer = new Timer(100, this);
 	LaunchPanel launchPanel = new LaunchPanel();
-	GamePanel gamePanel;
-	DisplaySettings settingsPanel;
-	public PlayersSetup playersPanel= new PlayersSetup();//Instantiating this here makes it so player settings are preserved when going back to LaunchPanel
+	GamePanel gamePanel;//
+	SettingsPanel settingsPanel = new SettingsPanel();
+	PlayersSetup playersPanel= new PlayersSetup();//Instantiating this here makes it so player settings are preserved when going back to LaunchPanel
 	BettingPanel bettingPanel;
 	
 	GameBoard(){
@@ -67,7 +70,7 @@ public class GameBoard extends JFrame implements ActionListener{
 		}
 		//Code to handle when user presses settingsButton
 		if(launchPanel != null &&e.getSource().equals(launchPanel.settingsButton)) {
-			settingsPanel = new DisplaySettings();
+			
 			getContentPane().remove(launchPanel);
 			getContentPane().add(settingsPanel);
 			settingsPanel.backButton.addActionListener(this);
@@ -81,9 +84,13 @@ public class GameBoard extends JFrame implements ActionListener{
 		
 		//SettingsPanel logic
 		//Code to handle when user presses settings.backButton
-		if(settingsPanel != null && e.getSource().equals(settingsPanel.backButton)) {
+		if(settingsPanel != null && e.getSource().equals(settingsPanel.backButton)&& settingsPanel.isShowing()) {
 			remove(settingsPanel);
 			add(launchPanel);
+			
+			colorCheck = settingsPanel.getColorCheck();//Updates the default values with the updates ones from settings
+			fontSize = settingsPanel.getFontSize();//Updates the default values with the updates ones from settings
+			
 		}
 		//end SettingsPanel logic
 		
@@ -106,7 +113,7 @@ public class GameBoard extends JFrame implements ActionListener{
 		if(playersPanel != null&& e.getSource().equals(playersPanel.startSimpleButton)) {//if players is displayed and the user clicks the start simple button
 			
 			remove(playersPanel);
-			gamePanel = new GamePanel("simple",playersPanel);
+			gamePanel = new GamePanel("simple",playersPanel,colorCheck,fontSize);
 			add(gamePanel);
 			
 			
@@ -116,7 +123,7 @@ public class GameBoard extends JFrame implements ActionListener{
 		if(playersPanel != null&& e.getSource().equals(playersPanel.startComplexButton)) {//if players is displayed and the user clicks the start complex button
 			
 			remove(playersPanel);
-			gamePanel = new GamePanel("complex",playersPanel);
+			gamePanel = new GamePanel("complex",playersPanel,colorCheck,fontSize);
 			add(gamePanel);
 			
 		}
@@ -145,6 +152,10 @@ public class GameBoard extends JFrame implements ActionListener{
 		}
 		
 		//end GamePanel logic
+		
+		//GamePanel logic
+		
+		
 		
 		
 		pack(); //Calling this in a loop like fashion ensures GameBoard is always shaped as intended
