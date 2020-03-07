@@ -106,29 +106,47 @@ public class SettingsPanel extends JPanel implements ActionListener{
 		
 	}
 	
+	//method to display the label of successful or failure of updating settings
+	//after the apply button is clicked.
+	
+	public void timedDisplay() {
+		Timer timer = new Timer(3000, new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				updateMsgLabel.setVisible(false);
+				
+			}
+		});
+		timer.start();
+	}
+	
 	public void actionPerformed(ActionEvent event)
 	{
 		if (event.getSource() == applyButton) {
-			String temp = colorOptionsBox.getSelectedItem().toString();
-			fontSize = updateFontSize();
-				
-			if (temp == "Full Color") {
-				colorCheck = true;
-			}
-			else {
-				colorCheck = false;
-			}
-			//display msg to user that settings have been updated
-			updateMsgLabel.setVisible(true);
-			Timer timer = new Timer(3000, new ActionListener() {
-				
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					updateMsgLabel.setVisible(false);
+			
+			try {
+				String temp = colorOptionsBox.getSelectedItem().toString();
+				fontSize = updateFontSize();
 					
+				if (temp == "Full Color") {
+					colorCheck = true;
 				}
-			});
-			timer.start();
+				else {
+					colorCheck = false;
+				}
+				//display msg to user that settings have been updated
+				updateMsgLabel.setVisible(true);
+				timedDisplay();//call the timer to remove the msg after 3 seconds
+				
+			} 
+			
+			catch (Exception e) {
+				updateMsgLabel.setText("Oops! Something went wrong.");
+				updateMsgLabel.setVisible(true);
+				timedDisplay();//call the timer to remove the msg after 3 seconds
+			}
+			
 			
 		}
 	}
