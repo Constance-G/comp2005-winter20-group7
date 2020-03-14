@@ -24,7 +24,8 @@ public class GamePanel extends JPanel {//Refactored from GamePanel
 		fontSize = fontSizeIn;
 		colorCheck = colorCheckIn;
 		String[][] mapGen;
-		robots =generateRobots();
+		System.out.println(colorCheckIn);
+		robots =generateRobots(colorCheckIn);
 		if(config.equals("simple")) {//Creates the game in Simple formatting
 			mapLayout = simpleMapPanel();
 			mapGen = buildMap(mapLayout);
@@ -68,7 +69,7 @@ public class GamePanel extends JPanel {//Refactored from GamePanel
 				
 				if(robotPoints[i].equals(pointIndex)&& !robotPoints[i].equals(robotPoints[index])) {
 					
-					generateRobots();
+					generateRobots(colorCheck);
 					//checkRobotOverlap();
 					return;
 				}
@@ -86,7 +87,7 @@ public class GamePanel extends JPanel {//Refactored from GamePanel
 				
 				
 				if(obsticle.equals(robotPoints)) {
-					generateRobots();
+					generateRobots(colorCheck);
 					//checkRobotOverlap();
 					return;
 				}
@@ -102,22 +103,22 @@ public class GamePanel extends JPanel {//Refactored from GamePanel
 				MapPiece mapPanel = (MapPiece) imag;
 				
 				if(mapPanel.token != null&&mapPanel.token.location.equals(robotPoints[0])) {
-					generateRobots();
+					generateRobots(colorCheck);
 					//checkRobotOverlap();
 					return;
 				}
 				if(mapPanel.token != null&&mapPanel.token.location.equals(robotPoints[1])) {
-					generateRobots();
+					generateRobots(colorCheck);
 					//checkRobotOverlap();
 					return;
 				}
 				if(mapPanel.token != null&&mapPanel.token.location.equals(robotPoints[2])) {
-					generateRobots();
+					generateRobots(colorCheck);
 					//checkRobotOverlap();
 					return;
 				}
 				if(mapPanel.token != null&&mapPanel.token.location.equals(robotPoints[3])) {
-					generateRobots();
+					generateRobots(colorCheck);
 					//checkRobotOverlap();
 					return;
 				}
@@ -127,14 +128,14 @@ public class GamePanel extends JPanel {//Refactored from GamePanel
 
 	}
 
-	Robot[] generateRobots() {
+	Robot[] generateRobots(boolean colorCheckIn) {
 		
 		Robot[] robotArray = new Robot[4];
-		
-		robotArray[0] = new Robot(1,colorCheck);
-		robotArray[1] = new Robot(2,colorCheck);
-		robotArray[2] = new Robot(3,colorCheck);
-		robotArray[3] = new Robot(4,colorCheck);
+		System.out.println(colorCheckIn);
+		robotArray[0] = new Robot(1,colorCheckIn);
+		robotArray[1] = new Robot(2,colorCheckIn);
+		robotArray[2] = new Robot(3,colorCheckIn);
+		robotArray[3] = new Robot(4,colorCheckIn);
 		
 		for(Robot robot: robotArray) {
 			
@@ -142,9 +143,7 @@ public class GamePanel extends JPanel {//Refactored from GamePanel
 			Point point = new Point((int)(Math.random()*15),(int)(Math.random()*15));
 		
 			//System.out.println(point.x+"   "+point.y);
-			robot.setLocation(point,colorCheck);
-			
-			
+			robot.setLocation(point,colorCheckIn);	
 		}
 		
 		return robotArray;

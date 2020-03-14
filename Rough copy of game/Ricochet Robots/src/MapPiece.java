@@ -24,9 +24,9 @@ class MapPiece extends BufferedImage{
 	Robot[] robots;
 	Robot robotDisplayed;
 	Point point;
-	
+	boolean colorCheck = true;
 
-	MapPiece(String type,Dimension MapSize,int fontSizeTemp,boolean colorCheck,Robot[] robotIn,Point pointIn){
+	MapPiece(String type,Dimension MapSize,int fontSizeTemp,boolean colorCheckIn,Robot[] robotIn,Point pointIn){
 
 		super(GameBoard.SCREENSIZE.width/20, GameBoard.SCREENSIZE.height/20, BufferedImage.TYPE_INT_ARGB);
 		SCREENSIZE = MapSize;
@@ -34,8 +34,7 @@ class MapPiece extends BufferedImage{
 		fontSize = fontSizeTemp;
 		robots = robotIn;
 		point = pointIn;
-		
-		
+		colorCheck= colorCheckIn;
 		generateMapPiece(colorCheck);
 
 	}
@@ -269,42 +268,24 @@ class MapPiece extends BufferedImage{
 				if(robot.GetLocation().equals(point)) {
 					robotDisplayed = robot;
 					System.out.println("Drawing:   " +point);
-					if(colorCheck == false) {//Color accessibility mode
 
-						BufferedImage image = robot.getRobotImage();
-						//System.out.println("Height:   " +image.getHeight());
-						Image tmp = image.getScaledInstance(this.getWidth()/2, this.getWidth()/2, Image.SCALE_SMOOTH);
-						BufferedImage resize = new BufferedImage(this.getWidth()/2, this.getHeight()/2, BufferedImage.TYPE_INT_ARGB);
-						Graphics2D g2d = resize.createGraphics();
-						g2d.drawImage(tmp, 0, 0, null);
-						g2d.dispose();		
-						for(int i = 0 ; i < resize.getWidth() ;i++) {
 
-							for(int j = 0 ; j <resize.getHeight();j++) {
+					BufferedImage image = robot.getRobotImage();
+					//System.out.println("Height:   " +image.getHeight());
+					Image tmp = image.getScaledInstance(this.getWidth()/2, this.getWidth()/2, Image.SCALE_SMOOTH);
+					BufferedImage resize = new BufferedImage(this.getWidth()/2, this.getHeight()/2, BufferedImage.TYPE_INT_ARGB);
+					Graphics2D g2d = resize.createGraphics();
+					g2d.drawImage(tmp, 0, 0, null);
+					g2d.dispose();		
+					for(int i = 0 ; i < resize.getWidth() ;i++) {
 
-								g.drawImage(resize, this.getWidth()/4, this.getWidth()/4, null);
+						for(int j = 0 ; j <resize.getHeight();j++) {
 
-							}
+							g.drawImage(resize, this.getWidth()/4, this.getWidth()/4, null);
+
 						}
-					}else {//Regular mode
-
-						BufferedImage image = robot.getRobotImage();
-						//System.out.println("Height:   " +image.getHeight());
-						Image tmp = image.getScaledInstance(this.getWidth()/2, this.getWidth()/2, Image.SCALE_SMOOTH);
-						BufferedImage resize = new BufferedImage(this.getWidth()/2, this.getHeight()/2, BufferedImage.TYPE_INT_ARGB);
-						Graphics2D g2d = resize.createGraphics();
-						g2d.drawImage(tmp, 0, 0, null);
-						g2d.dispose();		
-						for(int i = 0 ; i < resize.getWidth() ;i++) {
-
-							for(int j = 0 ; j <resize.getHeight();j++) {
-
-								g.drawImage(resize, this.getWidth()/4, this.getWidth()/4, null);
-
-							}
-						}
-
 					}
+
 				}
 
 			}
