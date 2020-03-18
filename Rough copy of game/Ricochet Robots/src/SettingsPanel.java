@@ -74,10 +74,13 @@ public class SettingsPanel extends JPanel implements ActionListener{
 
 	}
 	
+	//method to return if the setting is for full color (true) or BW (false)
 	public Boolean getColorCheck() {
 		return colorCheck;
 	}
 
+	//method to return the currently selected font size
+	//"Small", "Medium", "Large"
 	public int getFontSize() {
 		return fontSize;
 	}

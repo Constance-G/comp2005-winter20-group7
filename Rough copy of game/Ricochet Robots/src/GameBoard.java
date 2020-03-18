@@ -12,6 +12,7 @@ public class GameBoard extends JFrame implements ActionListener{
 	private Boolean colorCheck =  true; // true by defaultCan be modified at runtime in the SettingsPanel
 	public int fontSize = 16; // default 16. Can be modified at runtime in the SettingsPanel
 	static final Dimension SCREENSIZE = new Dimension(1000,1000);
+	private TokenBox insertBox;
 	
 	private Timer timer = new Timer(100, this);
 	LaunchPanel launchPanel = new LaunchPanel();
@@ -119,6 +120,8 @@ public class GameBoard extends JFrame implements ActionListener{
 			
 			gamePanel = new GamePanel("simple",playersPanel,colorCheck,fontSize);
 			add(gamePanel);
+			insertBox = new TokenBox(); //****** create token box
+			add(insertBox.makeFrame(), BorderLayout.NORTH);
 			
 			
 		}

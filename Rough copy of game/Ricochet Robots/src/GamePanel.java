@@ -14,6 +14,7 @@ public class GamePanel extends JPanel {//Refactored from GamePanel
 	int fontSize;
 	boolean colorCheck;
 	Robot[] robots =null;
+
 	
 	GamePanel(String config,PlayersSetup players,boolean colorCheckIn,int fontSizeIn){
 		
@@ -29,6 +30,7 @@ public class GamePanel extends JPanel {//Refactored from GamePanel
 		if(config.equals("simple")) {//Creates the game in Simple formatting
 			mapLayout = simpleMapPanel();
 			mapGen = buildMap(mapLayout);
+
 			frame =createFrame(mapGen);
 
 		}else {//Creates the game in Complex formatting
