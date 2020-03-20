@@ -3,32 +3,28 @@
  * font size and the display color from full color to black and white.
  */
 
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.xml.transform.Templates;
 import javax.swing.Timer;
 
 
 public class SettingsPanel extends JPanel implements ActionListener{
 
-	private boolean done = true;
 	public JButton backButton = new JButton("Back");
 	private JButton applyButton = new JButton("Apply");
 	private JLabel titleJLabel = new JLabel("Display Settings");
 	private String[] colorChoices = {"Full Color", "Black & White"};
 	private JComboBox colorOptionsBox = new JComboBox(colorChoices);
-	private Boolean colorCheck = true; //to track if the current setting is B&W (false) or color (true)
+	private static Boolean colorCheck = true; //to track if the current setting is B&W (false) or color (true)
 	private String[] fontSizes = {"Small", "Medium", "Large"};
 	private JComboBox fontSizeBox = new JComboBox(fontSizes);
 	private int fontSize = 16; //Had to Refactor to fontSize because font is a field in "Component" and JPanel is a child of Component
@@ -141,7 +137,6 @@ public class SettingsPanel extends JPanel implements ActionListener{
 				//display msg to user that settings have been updated
 				updateMsgLabel.setVisible(true);
 				timedDisplay();//call the timer to remove the msg after 3 seconds
-				
 			} 
 			
 			catch (Exception e) {
