@@ -11,7 +11,7 @@ public class GameBoard extends JFrame implements ActionListener{
 
 	private Boolean colorCheck =  true; // true by defaultCan be modified at runtime in the SettingsPanel
 	public int fontSize = 16; // default 16. Can be modified at runtime in the SettingsPanel
-	static final Dimension SCREENSIZE = new Dimension(1000,1000);
+	static final Dimension SCREENSIZE = new Dimension(900,900);
 	private TokenBox insertBox;
 	
 	private Timer timer = new Timer(100, this);
@@ -122,6 +122,9 @@ public class GameBoard extends JFrame implements ActionListener{
 			add(gamePanel);
 			insertBox = new TokenBox(); //****** create token box
 			add(insertBox.makeFrame(), BorderLayout.NORTH);
+			insertBox.getGenBtn().addActionListener(this);
+		
+			
 			
 			
 		}
@@ -132,6 +135,10 @@ public class GameBoard extends JFrame implements ActionListener{
 			remove(playersPanel);
 			gamePanel = new GamePanel("complex",playersPanel,colorCheck,fontSize);
 			add(gamePanel);
+			insertBox = new TokenBox(); //****** create token box
+			add(insertBox.makeFrame(), BorderLayout.NORTH);
+			insertBox.getGenBtn().addActionListener(this);
+		
 			
 		}
 		
@@ -147,31 +154,63 @@ public class GameBoard extends JFrame implements ActionListener{
 		}
 		
 		//end PlayersSetup logic
-		
-		
+
+
 		//GamePanel logic
-		if(gamePanel != null && bettingPanel == null && gamePanel.isBettingRound == true) {
-			bettingPanel = new BettingPanel(playersPanel.getPlayerArray());
-			add(bettingPanel,BorderLayout.EAST);
+
+		//Logic to start betting
+
+		//Code to get the first turn started
+		if(gamePanel != null &&  gamePanel.isBettingRound == false && gamePanel.isTurnRound == false) {
+
+
+
+			if(e.getSource().equals(insertBox.getGenBtn())) {
+
+				bettingPanel = new BettingPanel(gamePanel.players);
+				gamePanel.isBettingRound = true;
+			}
+
+
+			//Logic to pick starting Player NOTE: Only works with 4 players right now
+			for(Player player: gamePanel.players) {
+
+			}
+
 		}
-		if(gamePanel != null && bettingPanel != null && gamePanel.isBettingRound == true) {
-			
+
+		if(gamePanel != null && bettingPanel != null && gamePanel.isBettingRound == true/* e.getSource().equals(gamePanel.generate)*/) {//Need to update isBettingRound to e.get(Generate
+
+			//System.out.println("Betting Round: True");
+			bettingPanel.setPreferredSize(new Dimension(70,150));
+			add(bettingPanel,BorderLayout.SOUTH);
+
 		}
-		//if(gamePanel != null) {
-			
-		//	gamePanel.repaint();
-		//}
-		
+
+		if(gamePanel != null && bettingPanel != null && gamePanel.isTurnRound == true && bettingPanel.isShowing()) {
+
+			System.out.println("Turn Round: True");
+			gamePanel.isBettingRound = false;
+			remove(bettingPanel);
+			if(gamePanel.robotClicked != null) {
+
+			}
+		}
+
+		//Code for insertBox.genBtn
+
+
+
+
+
 		//end GamePanel logic
-		
-		//GamePanel logic
-		
-		
-		
-		
+
+
+
+
 		pack(); //Calling this in a loop like fashion ensures GameBoard is always shaped as intended
-		
+
 	}
-	
-	
+
+
 }
