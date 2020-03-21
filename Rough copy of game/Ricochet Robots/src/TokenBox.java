@@ -164,10 +164,10 @@ public class TokenBox implements ActionListener{
 	
 	//method to change the random num token
 	public void generateRandomNum() {
+		//get a Random number between 1 and 17
 		int randInt = randomNum.nextInt((17-1) + 1) + 1;
 		tokenNumber = randInt; //storing the number for the get method
 		//display this on the JLabel
-	
 		String convertToString;
 		if (colorVerify.getColorCheck()) {
 			convertToString = Integer.toString(randInt);
