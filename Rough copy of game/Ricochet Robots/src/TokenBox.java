@@ -23,7 +23,7 @@ public class TokenBox implements ActionListener{
 	private Random randomNum = new Random();
 	private JLabel displayNumJLabel;
 	private ArrayList<String> picNameStrings = new ArrayList<String>();
-	private SettingsPanel colorVerify = new SettingsPanel();
+	private SettingsPanel colorVerify = new SettingsPanel(); // to update the color mode 
 	private JPanel titleBoxJPanel;
 	private JLabel movingLabel; //second label "Where will you move.."
 	private ArrayList<String> pieceNamesArrayList = new ArrayList<String>(); //list of the piece names
@@ -73,9 +73,6 @@ public class TokenBox implements ActionListener{
 		titleBoxJPanel.setLayout(new BoxLayout(titleBoxJPanel, BoxLayout.PAGE_AXIS));
 		numberBoxJPanel = new JPanel();
 		shapeBoxJPanel = new JPanel();
-		
-		//check if running color mode or black and white
-		colorVerify.getColorCheck();
 		
 		//put in a holder image at start
 		if (colorVerify.getColorCheck()) {
@@ -158,7 +155,7 @@ public class TokenBox implements ActionListener{
 		//shapeIcon = new ImageIcon(shapeImage);
 		displayShapeJLabel.setIcon(new ImageIcon(shapeImage));
 		if (randInt > 5) { //if BW number bring down to color for name indexing
-			randInt -= -6;
+			randInt -= 6;
 		}
 		currentShape = pieceNamesArrayList.get(randInt);
 		shapeJLabel.setText("Target Shape: " + currentShape);
@@ -171,7 +168,13 @@ public class TokenBox implements ActionListener{
 		int randInt = randomNum.nextInt((17-1) + 1) + 1;
 		tokenNumber = randInt; //storing the number for the get method
 		//display this on the JLabel
-		String convertToString = Integer.toString(randInt);
+		String convertToString;
+		if (colorVerify.getColorCheck()) {
+			convertToString = Integer.toString(randInt);
+		}
+		else {
+			convertToString = Integer.toString(randInt) + "BW";
+		}
 		try {
 			shapeImage = ImageIO.read(getClass().getResource(filePath + "/Numbers/numberToken" + convertToString + ".png"));
 		} catch (IOException e) {
@@ -179,7 +182,7 @@ public class TokenBox implements ActionListener{
 			e.printStackTrace();
 		}
 		displayNumJLabel.setIcon(new ImageIcon(shapeImage));
-		numberJLabel.setText("Target Number: " + convertToString);
+		numberJLabel.setText("Target Number: " + randInt);
 	}
 	
 	//get method to return the currently selected token number
