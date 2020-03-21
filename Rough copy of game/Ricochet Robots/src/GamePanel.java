@@ -2,11 +2,15 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Point;
+import java.awt.Rectangle;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import javax.swing.JPanel;
 
-public class GamePanel extends JPanel {//Refactored from GamePanel
+public class GamePanel extends JPanel implements MouseListener{//Refactored from GamePanel
 
 	//Dimension SCREENSIZE = Toolkit.getDefaultToolkit().getScreenSize();
 	private final Dimension SCREENSIZE =GameBoard.SCREENSIZE;
@@ -14,23 +18,25 @@ public class GamePanel extends JPanel {//Refactored from GamePanel
 	int fontSize;
 	boolean colorCheck;
 	Robot[] robots =null;
-
+	Player[] players;
 	
-	GamePanel(String config,PlayersSetup players,boolean colorCheckIn,int fontSizeIn){
+	GamePanel(String config,PlayersSetup playersIn,boolean colorCheckIn,int fontSizeIn){
 		
-		setPreferredSize(new Dimension((int) (SCREENSIZE.width),(int) (SCREENSIZE.height)));
+		setPreferredSize(new Dimension((int) (SCREENSIZE.width)/20*16,(int) (SCREENSIZE.height)/20*16));
 		setLayout(new BorderLayout());
 
+		players = assignPlayers(playersIn);
+		
 		boardType = config;
 		fontSize = fontSizeIn;
 		colorCheck = colorCheckIn;
 		String[][] mapGen;
 		System.out.println(colorCheckIn);
 		robots =generateRobots(colorCheckIn);
+		
 		if(config.equals("simple")) {//Creates the game in Simple formatting
 			mapLayout = simpleMapPanel();
 			mapGen = buildMap(mapLayout);
-
 			frame =createFrame(mapGen);
 
 		}else {//Creates the game in Complex formatting
@@ -39,96 +45,193 @@ public class GamePanel extends JPanel {//Refactored from GamePanel
 			frame =createFrame(mapGen);
 		}
 		
-		
-		
-			
 	}
 	
-	private void checkRobotOverlap() {//This is used when generating the inital Robots to make sure they are in legal spots
-
-
-		Point[] robotPoints = new Point[4];
-
-		ArrayList<Point> obsticles = new ArrayList<Point>();
-
-		robotPoints[0] = robots[0].location;
-		robotPoints[1] = robots[1].location;
-		robotPoints[2] = robots[2].location;
-		robotPoints[3] = robots[3].location;
-
-		obsticles.add(new Point(7,7));
-		obsticles.add(new Point(8,7));
-		obsticles.add(new Point(8,8));
-		obsticles.add(new Point(7,8));
-
-		Point pointIndex;
-		int index = 0;
-		//Check if 2 are on the same piece
-		for(Point robotPoint : robotPoints) {
-			pointIndex = robotPoint;
+	//Code to account for the number of Players chosen of range (2)->(4).
+		//Used with GamePanel.players. Called by GamePanel() constructor
+		Player[] assignPlayers(PlayersSetup playersIn) {
 			
-			for(int i = 0; i < robotPoints.length;i++) {
+			int numberOfPlayers = Integer.parseInt(String.valueOf(playersIn.jCombo.getSelectedItem()));
+			
+			Player[] players = new Player[numberOfPlayers];
+			
+			for(int i = 0; i<numberOfPlayers; i++) {
+				players[i] = playersIn.getPlayerArray()[i];
+			}
+			return players;
+		}
+		
+		//Move Logic
+		//Attempt at a recursive function for turn
+		//Not functioning
+		void startPlayerTurn(Player player,int betRemaining) {
+			
+			if(betRemaining == 0) {//Code for when the user is out of moves
 				
-				if(robotPoints[i].equals(pointIndex)&& !robotPoints[i].equals(robotPoints[index])) {
+			}
+				
+		}
+		
+		//This method is meant to be directed at the GamePanel.robots variable. It updates the robot to the next legal position in the direction of travel.
+		//Denote the String direction variable as ("N","S",'E","W"). This indicates attempted direction of travel.
+		//return null if the move can't be completed. (No robot moves)
+		//return the updated array of robots if the move is successful. (A change is made)
+		//Start robot move logic
+		public static Robot[] attemptMove(MapPiece[][] map,Robot[] robots,Robot toMove,String direction) {
+			
+			//null conditions
+			if(!isLegalMove(map,robots,toMove,direction)) {
+				return null;
+			}
+			//Code to handle different directors
+			if(direction.equals("N")) {
+				Point endPoint = new Point(toMove.location);
+				boolean done = false;
+				while(!done) {
 					
-					generateRobots(colorCheck);
-					//checkRobotOverlap();
-					return;
-				}
-				
+					Point toCheck = new Point(endPoint.x,endPoint.y-1);//Check this, not sure if this will be buggy.
+					if(!isMapPieceLegal(map[toCheck.x][toCheck.y])) {
+			
+					}	
+				}	
 			}
-			index++;
-			
-		}
-		
-		//Check if they are on an obsticle
-		
-		for(Point obsticle: obsticles) {
-			
-			for(Point robotPoint: robotPoints) {
-				
-				
-				if(obsticle.equals(robotPoints)) {
-					generateRobots(colorCheck);
-					//checkRobotOverlap();
-					return;
+			if(direction.equals("S")) {
+				Point endPoint = new Point(toMove.location);
+				boolean done = false;
+				while(!done) {
+					
+					Point toCheck = new Point(endPoint.x,endPoint.y+1);//Check this, not sure if this will be buggy.
+					if(!isMapPieceLegal(map[toCheck.x][toCheck.y])) {
+						
+					}			
 				}
 			}
-			
-		}
-		//Check if they are on a goal
-		
-		for(BufferedImage[] image : imageMap) {
-			
-			for(BufferedImage imag: image) {
-				
-				MapPiece mapPanel = (MapPiece) imag;
-				
-				if(mapPanel.token != null&&mapPanel.token.location.equals(robotPoints[0])) {
-					generateRobots(colorCheck);
-					//checkRobotOverlap();
-					return;
-				}
-				if(mapPanel.token != null&&mapPanel.token.location.equals(robotPoints[1])) {
-					generateRobots(colorCheck);
-					//checkRobotOverlap();
-					return;
-				}
-				if(mapPanel.token != null&&mapPanel.token.location.equals(robotPoints[2])) {
-					generateRobots(colorCheck);
-					//checkRobotOverlap();
-					return;
-				}
-				if(mapPanel.token != null&&mapPanel.token.location.equals(robotPoints[3])) {
-					generateRobots(colorCheck);
-					//checkRobotOverlap();
-					return;
+			if(direction.equals("E")) {
+				Point endPoint = new Point(toMove.location);
+				boolean done = false;
+				while(!done) {
+					
+					Point toCheck = new Point(endPoint.x+1,endPoint.y);//Check this, not sure if this will be buggy.
+					if(!isMapPieceLegal(map[toCheck.x][toCheck.y])) {
+						
+					}
 				}
 			}
+			if(direction.equals("W")) {
+				Point endPoint = new Point(toMove.location);
+				boolean done = false;
+				while(!done) {
+					
+					Point toCheck = new Point(endPoint.x-1,endPoint.y);//Check this, not sure if this will be buggy.
+					if(!isMapPieceLegal(map[toCheck.x][toCheck.y])) {
+						
+					}
+					
+				}
+			}
+			
+			return robots;
+			
 		}
-		
 
-	}
+		static boolean isLegalMove(MapPiece[][] map,Robot[] robots, Robot toMove,String direction) {
+			
+			//Starting location
+			Point startPoint = toMove.location;
+			//Check if the adjacent square in the direction of movement is legal.
+			if(direction.equals("N")) {
+				 Point endPoint = new Point(startPoint.x,startPoint.y-1);
+				 MapPiece toCheck = map[endPoint.x][endPoint.y];
+				 if(isMapPieceLegal(toCheck)) {
+					 return true;
+				 }
+			}
+			if(direction.equals("S")) {
+				 Point endPoint = new Point(startPoint.x,startPoint.y+1);
+				 MapPiece toCheck = map[endPoint.x][endPoint.y];
+				 if(isMapPieceLegal(toCheck)) {
+					 return true;
+				 }
+			}
+			if(direction.equals("E")) {
+				 Point endPoint = new Point(startPoint.x+1,startPoint.y);
+				 MapPiece toCheck = map[endPoint.x][endPoint.y];
+				 if(isMapPieceLegal(toCheck)) {
+					 return true;
+				 }
+			}
+			if(direction.equals("W")) {
+				 Point endPoint = new Point(startPoint.x-1,startPoint.y);
+				 MapPiece toCheck = map[endPoint.x][endPoint.y];
+				 if(isMapPieceLegal(toCheck)) {
+					 return true;
+				 }
+			}
+			return false;
+		
+		}
+		//Checks if the MapPiece is a centerpiece or occupied by a robot already
+		 static boolean isMapPieceLegal(MapPiece piece) {
+			
+			//Check if the piece is a Centerpiece
+			String[] illegalValues = {"1","2","3","4","5","6","7","8"};
+			for(String illegalValue: illegalValues) {
+				
+				if(piece.getPieceType().equals(illegalValue)) {
+					return false;
+				}
+			}
+			//end
+			
+			//Check if piece is already occupied by a robot;
+			if(piece.containsRobot()) {
+				return false;
+			}
+			//end
+			
+			//Otherwise, return true indicating that the piece is a legal move
+			return true;
+		}
+		 //To be used with the MouseEvent mouseClicked
+		 //Gets the MapPiece clicked by the player
+		 //Returns null if no MapPiece can be found.
+		 //Returns a single MapPiece if one is found
+		  MapPiece getMapPieceFromMouse(Point2D point) {
+			  
+			  for(MapPiece mp: getMapPieceArray()) {
+				  
+				  Point pnt = mp.point;
+				  Rectangle toTest = new Rectangle(mp.getWidth()*pnt.x,mp.getHeight()*pnt.y,mp.getWidth(),mp.getHeight());
+				  if(toTest.contains(point)) {
+					  System.out.println("Point clicked: " + pnt);//Prints the Point selected in range (0,0)->(15,15);
+					  return mp;
+				  }
+			  }  
+			return null;
+			 
+		 }
+		
+		//End static robotMove Logic
+		//End move logic
+		
+		//Use this to get an ArrayList of the MapPieces.
+		//This can be used if iterating through the pieces 
+		//The MapPiece[X][Y] array can be accessed directly to get the point at (X,Y)
+		public ArrayList<MapPiece> getMapPieceArray(){
+			
+			ArrayList<MapPiece> pieces = new ArrayList<MapPiece>();
+			
+			for(BufferedImage[] mpArray : imageMap) {
+				for(BufferedImage mp : mpArray) {
+					
+					MapPiece mapPiece = (MapPiece) mp;
+					pieces.add(mapPiece);
+				}
+				
+			}
+			return pieces;
+			
+		}
 
 	Robot[] generateRobots(boolean colorCheckIn) {
 		
@@ -213,6 +316,7 @@ public class GamePanel extends JPanel {//Refactored from GamePanel
 	int mapIndex = 0;
 	MapPanel[] mapLayout = new MapPanel[4];
 	public boolean isBettingRound = false;
+	public boolean isTurnRound = false;
 
 	MapPanel[] simpleMapPanel() {// Recursively creates mapLayout randomly using Math.random();
 
@@ -496,7 +600,39 @@ public class GamePanel extends JPanel {//Refactored from GamePanel
 
 	}
 
+	Robot robotClicked;
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		
+		if(isTurnRound&&getMapPieceFromMouse(e.getPoint()).robotDisplayed != null) {
+			robotClicked = getMapPieceFromMouse(e.getPoint()).robotDisplayed;//Gets the robot clicked by the player during the Turn Round
+		}
+		
+	}
 
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
 
 	
 }
