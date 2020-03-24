@@ -294,12 +294,7 @@ class MapPiece extends BufferedImage{
 			}
 		}
 		
-		if(selected) {
-			System.out.println("Tring to draw");
-			g.setColor(Color.red);
-			g.drawRect(0, 0,  this.getWidth(), this.getHeight());
-			
-		}
+		
 
 		return this;
 

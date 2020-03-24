@@ -16,10 +16,12 @@ class ScorePanel extends JPanel {
 	private JLabel board_label;
 	private JLabel turn;
 	private JLabel winner;
+	JLabel pieceSelected;
 	private Color myGrey = new Color(128, 128, 128); // used same color as the bettingPanel so that it blends perfectly
 	String[][] data;
 	Player[] play;
 	GamePanel gamePanel;
+	Robot robotClicked ;
 	
 	// Constructor
 	ScorePanel(Player[] playIn,GamePanel gp)
@@ -35,6 +37,7 @@ class ScorePanel extends JPanel {
 		board_label = new JLabel("Scoreboard");
 		turn = new JLabel(""); // TODO Need to add code so that it displays which player's turn it is
 		winner = new JLabel(" "); // TODO Need to add code so that it displays which player is the winner
+		pieceSelected = new JLabel(" ");
 		// Data to be displayed in the JTable
 		String[][] data1 = { { play[0].name, String.valueOf(play[0].tokens) }, {  play[1].name, String.valueOf(play[0].tokens) }, {  play[2].name, String.valueOf(play[0].tokens) }, {  play[3].name, String.valueOf(play[0].tokens) } };
 
@@ -52,7 +55,8 @@ class ScorePanel extends JPanel {
 
 		add(sp);
 		add(turn); // added turn and winner but they are correctly empty
-		add(winner);
+		//add(winner);
+		add(pieceSelected);
 
 	}
 	void update() {
@@ -74,9 +78,17 @@ class ScorePanel extends JPanel {
 		newModel.setValueAt(String.valueOf(play[3].tokens), 3, 1);
 		
 		if(gamePanel.playersTurn != null) {
-			turn.setText(gamePanel.playersTurn.name+"'s Turn:");
+			turn.setText("  "+gamePanel.playersTurn.name+"'s Turn:");
 		}else {
 			turn.setText("");
+		}
+		if(gamePanel.isBettingRound) {
+			turn.setText("Place your bets!");
+		}
+		if(robotClicked != null) {
+			pieceSelected.setText("  Selected: "+ robotClicked.currentShape);
+		}else {
+			pieceSelected.setText("");
 		}
 		
 		j.setModel(newModel);

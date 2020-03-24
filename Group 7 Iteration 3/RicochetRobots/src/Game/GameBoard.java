@@ -219,22 +219,26 @@ public class GameBoard extends JFrame implements ActionListener {
 		
 		if(gamePanel != null && gamePanel.robotClicked != null) {
 			
-			
+			Robot test = null;
 			Point2D point = gamePanel.robotClicked.location;
 			MapPiece[][] mapPieces = (MapPiece[][]) gamePanel.imageMap;
 			for(MapPiece[] mapArray :mapPieces) {//Check Win
 				for(MapPiece piece :mapArray) {
 					
 					if(point.equals(piece.point)) {
-						System.out.println("Tring to draw");
-						piece.selected = true;
-						gamePanel.repaint();
-						gamePanel.repaint();
-					}else {
-						piece.selected = false;
-					}
+						
+						scorePanel.robotClicked = gamePanel.robotClicked;
+						
+					
+					}	
 				}
-			}	
+			}
+			
+			
+		}
+		
+		if(gamePanel != null && gamePanel.robotClicked == null) {
+			scorePanel.robotClicked = null;
 		}
 		
 		if(gamePanel != null && gamePanel.isTurnRound == true) {
