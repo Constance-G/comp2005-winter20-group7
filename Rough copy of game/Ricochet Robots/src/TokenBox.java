@@ -2,6 +2,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.awt.image.ColorConvertOp;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -31,6 +32,7 @@ public class TokenBox implements ActionListener{
 	private JLabel numberJLabel; //label to display the current target num, getTokenNumber method
 	private int tokenNumber;
 	private String currentShape = new String();
+	private Boolean extraPlayerBoolean = false; //check for optional play piece use TODO attach for optional Black Robot
 	
 	//Constructor
 	public TokenBox() {
@@ -40,16 +42,16 @@ public class TokenBox implements ActionListener{
 		picNameStrings.add("diamondSolid.png");
 		picNameStrings.add("hexagonSolid.png");
 		picNameStrings.add("moonSolid.png");
-		picNameStrings.add("pyramidSolid.png");
 		picNameStrings.add("starSolid.png");
-		picNameStrings.add("multiColor.png");
+		picNameStrings.add("pyramidSolid.png");
 		picNameStrings.add("diamondSolidBW.png");
 		picNameStrings.add("hexagonSolidBW.png");
 		picNameStrings.add("moonSolidBW.png");
-		picNameStrings.add("pyramidSolidBW.png");
 		picNameStrings.add("starSolidBW.png");
-		picNameStrings.add("multiColorBW.png");
-		//TODO add black player piece
+		picNameStrings.add("pyramidSolidBW.png");
+		picNameStrings.add("multiColor"); //goes in the numbers generator slot
+		picNameStrings.add("multiColorBW");
+		//TODO add black player piece can use pyramid
 		
 		//build arraylist of names to match the shapes
 		pieceNamesArrayList.add("Diamond");
@@ -138,10 +140,20 @@ public class TokenBox implements ActionListener{
 		//get a Random number between 0 and 5 for color or 6-11 for BW
 		int randInt;
 		if (colorVerify.getColorCheck()) {
-			randInt = randomNum.nextInt(6);
+			if (extraPlayerBoolean == false) {
+				randInt = randomNum.nextInt(4);
+			}
+			else {
+				randInt = randomNum.nextInt(5); //include optional 5th robot (pyramid)
+			}
 		}
 		else {
-			randInt = randomNum.nextInt((11-6) + 1) + 6;
+			if (extraPlayerBoolean == false) {
+				randInt = randomNum.nextInt((8-5) + 1) + 5;
+			}
+			else {
+				randInt = randomNum.nextInt((9-5) + 1) + 5; //include optional 5th robot (pyramid)
+			}
 		}
 		
 		//get the shape associated with the number
@@ -154,8 +166,8 @@ public class TokenBox implements ActionListener{
 		}
 		//shapeIcon = new ImageIcon(shapeImage);
 		displayShapeJLabel.setIcon(new ImageIcon(shapeImage));
-		if (randInt > 5) { //if BW number bring down to color for name indexing
-			randInt -= 6;
+		if (randInt > 4) { //if BW number bring down to color for name indexing
+			randInt -= 5;
 		}
 		currentShape = pieceNamesArrayList.get(randInt);
 		shapeJLabel.setText("Target Shape: " + currentShape);
@@ -165,24 +177,44 @@ public class TokenBox implements ActionListener{
 	//method to change the random num token
 	public void generateRandomNum() {
 		//get a Random number between 1 and 17
-		int randInt = randomNum.nextInt((17-1) + 1) + 1;
+		int randInt = randomNum.nextInt((18-1) + 1) + 1; //18 is multicolor 
 		tokenNumber = randInt; //storing the number for the get method
 		//display this on the JLabel
 		String convertToString;
-		if (colorVerify.getColorCheck()) {
-			convertToString = Integer.toString(randInt);
+		//check if multicolor or number
+		if (randInt == 18) {
+			if (colorVerify.getColorCheck()) {
+				convertToString = picNameStrings.get(10); //multicolor
+			}
+			else {
+				convertToString = picNameStrings.get(11); //multicolor BW
+			}
 		}
+		
 		else {
-			convertToString = Integer.toString(randInt) + "BW";
+			if (colorVerify.getColorCheck()) {
+				convertToString = "numberToken" + Integer.toString(randInt); //numbers
+			}
+			else {
+				convertToString = "numberToken" + Integer.toString(randInt) + "BW";
+			}
 		}
+		
 		try {
-			shapeImage = ImageIO.read(getClass().getResource(filePath + "/Numbers/numberToken" + convertToString + ".png"));
+			shapeImage = ImageIO.read(getClass().getResource(filePath + "/Numbers/" + convertToString + ".png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		displayNumJLabel.setIcon(new ImageIcon(shapeImage));
-		numberJLabel.setText("Target Number: " + randInt);
+		//check again for multi color to display the correct text
+		if (randInt == 18) {
+			numberJLabel.setText("Target Number: " + pieceNamesArrayList.get(5));
+		}
+		else {
+			numberJLabel.setText("Target Number: " + randInt);
+		}
+		
 	}
 	
 	//get method to return the currently selected token number
