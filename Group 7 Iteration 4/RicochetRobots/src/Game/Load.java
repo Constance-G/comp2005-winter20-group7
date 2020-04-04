@@ -66,9 +66,9 @@ public class Load {
 			try {
 
 				Files.createDirectories(saveFolder);
-				System.out.println("Creating save folder: ");
+				//
 			} catch (IOException e) {
-				System.out.println("Failed to create save folder: ");
+				//
 				e.printStackTrace();
 			}
 
@@ -98,7 +98,7 @@ public class Load {
 						break;
 					}
 					stringArray[index] = text;
-					System.out.println(stringArray[index]);
+					//
 					index++;
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
@@ -159,7 +159,7 @@ public class Load {
 					String[] robot2 = stringArray[index + 2].split(",");
 					String[] robot3 = stringArray[index + 3].split(",");
 					String[] robot4 = stringArray[index + 4].split(",");
-					System.out.println(robot1[2]);
+					//
 
 					robots[0] = new Robot(Integer.parseInt(robot1[2]), true);
 					robots[1] = new Robot(Integer.parseInt(robot2[2]), true);

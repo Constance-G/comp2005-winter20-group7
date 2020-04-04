@@ -82,14 +82,14 @@ public class AiLogic {
 
 		if (directionHistory.size() > 5) {
 
-			System.out.println("Direction history-1:  " + directionHistory.get(directionHistory.size() - 1));
-			System.out.println("Direction history-2:  " + directionHistory.get(directionHistory.size() - 2));
-			System.out.println("Direction history-3:  " + directionHistory.get(directionHistory.size() - 3));
-			System.out.println("Direction history-4:  " + directionHistory.get(directionHistory.size() - 4));
+			//
+			//
+			//
+			//
 
 			if (directionHistory.get(directionHistory.size() - 1)
 					.equals(directionHistory.get(directionHistory.size() - 2))) {
-				System.out.println("stuckInLoo0p");
+				//
 
 				while (true) {
 
@@ -99,7 +99,7 @@ public class AiLogic {
 					if(directions[num].equals(directionHistory.get(directionHistory.size() - 1))) {
 						
 					}else {
-						System.out.println("FixingAi: " + num);
+						//
 						directionHistory.add(directions[num]);
 						return directions[num];
 
@@ -110,7 +110,7 @@ public class AiLogic {
 
 			if (direction.equals(directionHistory.get(directionHistory.size() - 3)) && directionHistory
 					.get(directionHistory.size() - 2).equals(directionHistory.get(directionHistory.size() - 4))) {
-				System.out.println("stuckInLoo0p");
+				//
 
 				while (true) {
 
@@ -119,7 +119,7 @@ public class AiLogic {
 					if(directions[num].equals(directionHistory.get(directionHistory.size() - 1))) {
 						
 					}else {
-						System.out.println("FixingAi: " + num);
+						//
 						directionHistory.add(directions[num]);
 						return directions[num];
 
@@ -130,7 +130,7 @@ public class AiLogic {
 
 			if (direction.equals(directionHistory.get(directionHistory.size() - 5)) && directionHistory
 					.get(directionHistory.size() - 2).equals(directionHistory.get(directionHistory.size() - 6))) {
-				System.out.println("stuckInLoop");
+				//
 				while (true) {
 
 					int num = r.nextInt(4);
@@ -138,7 +138,7 @@ public class AiLogic {
 					if(directions[num].equals(directionHistory.get(directionHistory.size() - 1))) {
 						
 					}else {
-						System.out.println("FixingAi: " + num);
+						//
 						directionHistory.add(directions[num]);
 						return directions[num];
 
@@ -149,11 +149,11 @@ public class AiLogic {
 		}
 		directionHistory.add(directions[moveChoice]);
 		direction = directions[moveChoice];
-		System.out.println(directions[moveChoice]);
-		System.out.println("Outputlayer0:  " + outputLayer[0]);
-		System.out.println("Outputlayer1:  " + outputLayer[1]);
-		System.out.println("Outputlayer2:  " + outputLayer[2]);
-		System.out.println("Outputlayer3:  " + outputLayer[3]);
+		//
+		//
+		//
+		//
+		//
 
 		return directions[moveChoice];
 	}
@@ -190,9 +190,9 @@ public class AiLogic {
 		targetShape = gb.insertBox.getTokenShape();
 		int index = 0;
 		for (Robot robot : gb.gamePanel.robots) {
-			System.out.println("yeet");
+			//
 			if (robot.currentShape.equals(targetShape)) {
-				System.out.println(robot.location);
+				//
 				targetRobot = robot;
 			}
 
@@ -203,15 +203,20 @@ public class AiLogic {
 		for (MapPiece[] mpArray1 : mpArray) {
 			for (MapPiece mp : mpArray1) {
 				if (mp.token != null) {
-					// System.out.println(mp.token.tokenNum);
-					// System.out.println( gb.insertBox.getTokenNumber());
+					// //
+					// //
 					if (mp.token.tokenNum == gb.insertBox.getTokenNumber()) {
 						targetPiece = mp;
 						break;
 					}
 				}
 			}
+			
 		}
+		if(gb.insertBox.getTokenNumber() == 18) {
+			targetPiece = mpArray[1][1];
+		}
+		
 		initalValues = new double[2];
 		if (targetPiece == null) {
 			initalValues[0] = 0;
@@ -249,7 +254,7 @@ public class AiLogic {
 				//}
 
 				//weights[index] = Double.parseDouble(text);
-			//	System.out.println(weights[index]);
+			//	//
 			//	index++;
 			//} catch (IOException e) {
 				// TODO Auto-generated catch block

@@ -242,7 +242,7 @@ class MapPiece extends BufferedImage{
 				//g.drawString(splt[1],20,30);
 			//}else {//Regular mode
 
-				//System.out.println(Integer.parseInt(splt[1]));
+				////
 				token = new Token(Integer.parseInt(splt[1]),colorCheck);
 				BufferedImage image = token.getTokenImage();
 				Image tmp = image.getScaledInstance(this.getWidth()/2, this.getWidth()/2, Image.SCALE_SMOOTH);
@@ -270,11 +270,11 @@ class MapPiece extends BufferedImage{
 			for(Robot robot: robots) {
 				if(robot.GetLocation().equals(point)) {
 					robotDisplayed = robot;
-					//System.out.println("Drawing:   " +point);
+					////
 
 
 					BufferedImage image = robot.getRobotImage();
-					//System.out.println("Height:   " +image.getHeight());
+					////
 					Image tmp = image.getScaledInstance(this.getWidth()/2, this.getWidth()/2, Image.SCALE_SMOOTH);
 					BufferedImage resize = new BufferedImage(this.getWidth()/2, this.getHeight()/2, BufferedImage.TYPE_INT_ARGB);
 					Graphics2D g2d = resize.createGraphics();
@@ -303,11 +303,11 @@ class MapPiece extends BufferedImage{
 	static boolean checkDiagonal(MapPiece mp) {//Check if the piece contains a diagonal barrier
 		
 		if(mp.getPieceType().split(",")[0].endsWith("13")) {
-			//System.out.println("checkDiagonalWorking");
+			////
 			return true;
 		}
 		if(mp.getPieceType().split(",")[0].endsWith("24")) {
-			//System.out.println("checkDiagonalWorking");
+			////
 			return true;
 		}
 

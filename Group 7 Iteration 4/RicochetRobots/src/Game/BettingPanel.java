@@ -152,7 +152,7 @@ class BettingPanel extends JPanel implements ActionListener {
 		butt_3.addActionListener(e -> {
 			int first_value = Integer.parseInt(amount_1.getText());
 			first_amount = first_value;
-			System.out.println("First player : " + first_amount + " steps.");
+			//
 			amount_1.setEditable(false);
 			butt_1.setEnabled(false);
 			butt_2.setEnabled(false);
@@ -182,7 +182,7 @@ class BettingPanel extends JPanel implements ActionListener {
 		butt_6.addActionListener(e -> {
 			int second_value = Integer.parseInt(amount_2.getText());
 			second_amount = second_value;
-			System.out.println("Second player: " + second_amount + " steps.");
+			//
 			amount_2.setEditable(false);
 			butt_4.setEnabled(false);
 			butt_5.setEnabled(false);
@@ -212,7 +212,7 @@ class BettingPanel extends JPanel implements ActionListener {
 		butt_9.addActionListener(e -> {
 			int third_value = Integer.parseInt(amount_3.getText());
 			third_amount = third_value;
-			System.out.println("Third player: " + third_amount + " steps.");
+			//
 			amount_3.setEditable(false);
 			butt_7.setEnabled(false);
 			butt_8.setEnabled(false);
@@ -242,13 +242,13 @@ class BettingPanel extends JPanel implements ActionListener {
 		butt_12.addActionListener(e -> {
 			int fourth_value = Integer.parseInt(amount_4.getText());
 			fourth_amount = fourth_value;
-			System.out.println("Fourth player: " + fourth_amount + " steps.");
+			//
 			amount_4.setEditable(false);
 			butt_10.setEnabled(false);
 			butt_11.setEnabled(false);
 			player4Submitted = true;//Used with GameBoard logic
 		});
-		System.out.println("Here");
+		//
 
 		// This controls the timer aspect, ensures anybody can be the first to bid
 		butt_3.addActionListener(this);
@@ -268,7 +268,7 @@ class BettingPanel extends JPanel implements ActionListener {
 			}
 		}
 
-		System.out.println("Working");
+		//
 		player1Submitted=false;
 		player2Submitted=false;
 		player3Submitted=false;
@@ -351,5 +351,25 @@ class BettingPanel extends JPanel implements ActionListener {
 
 	}
 
+	public void setBets(Player[] players) {
+
+		if (players[0].isComputer) {
+
+			amount_1.setText(String.valueOf(players[0].bet));
+		}
+		if (players[1].isComputer) {
+			amount_2.setText(String.valueOf(players[0].bet));
+			
+		}
+		if (players[2].isComputer) {
+			amount_3.setText(String.valueOf(players[0].bet));
+			
+		}
+		if (players[3].isComputer) {
+			amount_4.setText(String.valueOf(players[0].bet));
+			
+		}
+
+	}
 
 }

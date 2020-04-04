@@ -28,10 +28,10 @@ public class PlayersSetup extends JPanel{
 		
 		setPreferredSize(new Dimension(400,600));
 		nameLabel.setEditable(false);
-		add(nameLabel);
+		//add(nameLabel);
 		
 		jCombo.setSelectedIndex(2);//Make 4 be the default selected value
-		add(jCombo);	
+		//add(jCombo);	
 		
 		update();
 	}
@@ -45,7 +45,7 @@ public class PlayersSetup extends JPanel{
 			}
 			index++;
 			if(player.configDisplay.playerType.getModel().getSelectedItem().equals("Computer")) {
-				System.out.println("Setting computer player: ");
+				//
 				player.isComputer = true;
 			}
 		}
@@ -78,7 +78,7 @@ public class PlayersSetup extends JPanel{
 			add(player1.configDisplay);
 			add(player2.configDisplay);
 			//Ensures at least one player is human 
-		//	System.out.println("2");
+		//	//
 		
 		}//
 		if(jCombo.getSelectedItem().equals("3")) {
@@ -91,7 +91,7 @@ public class PlayersSetup extends JPanel{
 			add(player2.configDisplay);
 			add(player3.configDisplay);
 			
-			//System.out.println("3");
+			////
 		}
 		if(jCombo.getSelectedItem().equals("4")) {
 			for(Component comp: getComponents()) {
@@ -104,7 +104,7 @@ public class PlayersSetup extends JPanel{
 			add(player3.configDisplay);
 			add(player4.configDisplay);
 			
-			//System.out.println("4");
+			////
 		}
 		
 		for(Player play :getPlayerArray()) {

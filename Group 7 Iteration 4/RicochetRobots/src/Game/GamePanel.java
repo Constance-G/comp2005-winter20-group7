@@ -66,7 +66,7 @@ public class GamePanel extends JPanel {//Refactored from GamePanel
 		fontSize = fontSizeIn;
 		colorCheck = colorCheckIn;
 		
-		System.out.println(colorCheckIn);
+		//
 		config = configIn;
 		
 		if(config.equals("simple")) {//Creates the game in Simple formatting
@@ -95,7 +95,7 @@ public class GamePanel extends JPanel {//Refactored from GamePanel
 			
 			for(int i = 0; i<numberOfPlayers; i++) {
 				players[i] = playersIn.getPlayerArray()[i];
-				System.out.println(playersIn.getPlayerArray()[i].getPlayerName());
+				//
 			}
 			return players;
 		}
@@ -119,12 +119,12 @@ public class GamePanel extends JPanel {//Refactored from GamePanel
 				return toMove.location;
 			}
 
-			//System.out.println("1");
+			////
 			// null conditions
 			
 			Point2D toCheck = toMove.location;
 
-			//System.out.println("2");
+			////
 			// Code to handle different directors
 			if (direction.equals("N")) {
 				Point2D endPoint = new Point((int) toMove.location.getX(), (int) toMove.location.getY());
@@ -135,7 +135,7 @@ public class GamePanel extends JPanel {//Refactored from GamePanel
 					for(MapPiece mp: mpArray) {
 						if(MapPiece.checkDiagonal(mp)&&mp.point.equals(toCheck)&&!MapPiece.checkMatchingColor(mp, toMove)) {
 				
-							System.out.println("return attemptMove parseDiag");
+							//
 							 return attemptMove(map,robots,toMove, parseDiagonalDirection(direction, mp, toMove,map));
 						}
 						
@@ -146,7 +146,7 @@ public class GamePanel extends JPanel {//Refactored from GamePanel
 					return null;
 				}
 				if (!isUnobstructed(map[(int)toMove.location.getX()][(int)toMove.location.getY()],direction,map)) {
-					System.out.println("Illegal Move: isUnobstructed");
+					//
 					return null;
 				}
 				
@@ -164,7 +164,7 @@ public class GamePanel extends JPanel {//Refactored from GamePanel
 					for(MapPiece mp: mpArray) {
 						if(MapPiece.checkDiagonal(mp)&&mp.point.equals(toCheck)&&!MapPiece.checkMatchingColor(mp, toMove)) {
 							
-							System.out.println("return attemptMove parseDiag");
+							//
 							 return attemptMove(map,robots,toMove, parseDiagonalDirection(direction, mp, toMove,map));
 						}
 						
@@ -174,7 +174,7 @@ public class GamePanel extends JPanel {//Refactored from GamePanel
 					return null;
 				}
 				if (!isUnobstructed(map[(int)toMove.location.getX()][(int)toMove.location.getY()],direction,map)) {
-					System.out.println("Illegal Move: isUnobstructed");
+					//
 					return null;
 				}
 				
@@ -191,7 +191,7 @@ public class GamePanel extends JPanel {//Refactored from GamePanel
 					for(MapPiece mp: mpArray) {
 						if(MapPiece.checkDiagonal(mp)&&mp.point.equals(toCheck)&&!MapPiece.checkMatchingColor(mp, toMove)) {
 						
-							System.out.println("return attemptMove parseDiag");
+							//
 							 return attemptMove(map,robots,toMove, parseDiagonalDirection(direction, mp, toMove,map));
 						}
 						
@@ -201,7 +201,7 @@ public class GamePanel extends JPanel {//Refactored from GamePanel
 					return null;
 				}
 				if (!isUnobstructed(map[(int)toMove.location.getX()][(int)toMove.location.getY()],direction,map)) {
-					System.out.println("Illegal Move: isUnobstructed");
+					//
 					return null;
 				}
 				
@@ -218,7 +218,7 @@ public class GamePanel extends JPanel {//Refactored from GamePanel
 					for(MapPiece mp: mpArray) {
 						if(MapPiece.checkDiagonal(mp)&&mp.point.equals(toCheck)&&!MapPiece.checkMatchingColor(mp, toMove)) {
 							
-							System.out.println("return attemptMove parseDiag");
+							//
 							 return attemptMove(map,robots,toMove, parseDiagonalDirection(direction, mp, toMove,map));
 						}
 						
@@ -228,7 +228,7 @@ public class GamePanel extends JPanel {//Refactored from GamePanel
 					return null;
 				}
 				if (!isUnobstructed(map[(int)toMove.location.getX()][(int)toMove.location.getY()],direction,map)) {
-					System.out.println("Illegal Move: isUnobstructed");
+					//
 					return null;
 				}
 				
@@ -239,25 +239,25 @@ public class GamePanel extends JPanel {//Refactored from GamePanel
 			
 			
 		
-			//System.out.println("3");
+			////
 			return toCheck;
 
 		}
 		
 		public static boolean isLegalMovev2(MapPiece[][] map, Robot[] robots, Robot toMove, String direction) {
 
-			//System.out.println("1");
+			////
 			// null conditions
 			
-			//System.out.println("isLegalMovev2 "+toMove.location+"  "  + direction);
+			////
 
-			//System.out.println("2");
+			////
 			// Code to handle different directors
 			if (direction.equals("N")) {
 				
-				System.out.println(toMove);
-				System.out.println(toMove.location.getX());
-				System.out.println(toMove.location.getY());
+				//
+				//
+				//
 				
 				Point2D endPoint = new Point((int) toMove.location.getX(), (int) toMove.location.getY());
 
@@ -268,7 +268,7 @@ public class GamePanel extends JPanel {//Refactored from GamePanel
 					return false;
 				}
 				if (!isUnobstructed(map[(int)toMove.location.getX()][(int)toMove.location.getY()],direction,map)) {
-					System.out.println("Illegal Move: isLegalMovev2");
+					//
 					return false;
 				}
 				
@@ -286,7 +286,7 @@ public class GamePanel extends JPanel {//Refactored from GamePanel
 					return false;
 				}
 				if (!isUnobstructed(map[(int)toMove.location.getX()][(int)toMove.location.getY()],direction,map)) {
-					System.out.println("Illegal Move: isLegalMovev2");
+					//
 					return false;
 				}
 				
@@ -303,7 +303,7 @@ public class GamePanel extends JPanel {//Refactored from GamePanel
 					return false;
 				}
 				if (!isUnobstructed(map[(int)toMove.location.getX()][(int)toMove.location.getY()],direction,map)) {
-					System.out.println("Illegal Move: isLegalMovev2");
+					//
 					return false;
 				}
 				
@@ -320,7 +320,7 @@ public class GamePanel extends JPanel {//Refactored from GamePanel
 					return false;
 				}
 				if (!isUnobstructed(map[(int)toMove.location.getX()][(int)toMove.location.getY()],direction,map)) {
-					System.out.println("Illegal Move: isLegalMovev2");
+					//
 					return false;
 				}
 				
@@ -331,7 +331,7 @@ public class GamePanel extends JPanel {//Refactored from GamePanel
 			
 			
 		
-			//System.out.println("3");
+			////
 			return false;
 
 		}
@@ -345,10 +345,10 @@ public class GamePanel extends JPanel {//Refactored from GamePanel
 			
 			if(direction.equals("N")) {
 				if(type.equals("13")) {
-					System.out.println("Checking Point: " + startPoint);
+					//
 					if(!isUnobstructed(map[(int) (startPoint.getX())][(int) startPoint.getY()],"E",map)) {
-						System.out.println("return attemptMove parseDiag");
-						System.out.println("Illegal Move: parseDiagonalDirection");
+						//
+						//
 						toMove.location = new Point((int)startPoint.getX(),(int)startPoint.getY());
 						return null;
 						
@@ -358,10 +358,10 @@ public class GamePanel extends JPanel {//Refactored from GamePanel
 					
 				}
 				if(type.equals("24")) {
-					System.out.println("Checking Point: " + startPoint);
+					//
 					if(!isUnobstructed(map[(int) (startPoint.getX())][(int) startPoint.getY()],"W",map)) {
-						System.out.println("return attemptMove parseDiag");
-						System.out.println("Illegal Move: parseDiagonalDirection");
+						//
+						//
 						toMove.location = new Point((int)startPoint.getX(),(int)startPoint.getY());
 						return null;
 						
@@ -373,10 +373,10 @@ public class GamePanel extends JPanel {//Refactored from GamePanel
 			}
 			if(direction.equals("S")) {
 				if(type.equals("13")) {
-					System.out.println("Checking Point: " + startPoint);
+					//
 					if(!isUnobstructed(map[(int) (startPoint.getX())][(int) startPoint.getY()],"W",map)) {
-						System.out.println("return attemptMove parseDiag");
-						System.out.println("Illegal Move: parseDiagonalDirection");
+						//
+						//
 						toMove.location = new Point((int)startPoint.getX(),(int)startPoint.getY());
 						return null;
 						
@@ -385,10 +385,10 @@ public class GamePanel extends JPanel {//Refactored from GamePanel
 					return "W";
 				}
 				if(type.equals("24")) {
-					System.out.println("Checking Point: " + startPoint);
+					//
 					if(!isUnobstructed(map[(int) (startPoint.getX())][(int) startPoint.getY()],"E",map)) {
-						System.out.println("return attemptMove parseDiag");
-						System.out.println("Illegal Move: parseDiagonalDirection");
+						//
+						//
 						toMove.location = new Point((int)startPoint.getX(),(int)startPoint.getY());
 						return null;
 						
@@ -400,9 +400,9 @@ public class GamePanel extends JPanel {//Refactored from GamePanel
 			}
 			if(direction.equals("E")) {
 				if(type.equals("13")) {
-					System.out.println("Checking Point: " + startPoint);
+					//
 					if(!isUnobstructed(map[(int) (startPoint.getX())][(int) startPoint.getY()],"N",map)) {
-						System.out.println("Illegal Move: parseDiagonalDirection");
+						//
 						toMove.location = new Point((int)startPoint.getX(),(int)startPoint.getY());
 						return null;
 						
@@ -411,9 +411,9 @@ public class GamePanel extends JPanel {//Refactored from GamePanel
 					return "N";
 				}
 				if(type.equals("24")) {
-					System.out.println("Checking Point: " + startPoint);
+					//
 					if(!isUnobstructed(map[(int) (startPoint.getX())][(int) startPoint.getY()],"S",map)) {
-						System.out.println("Illegal Move: parseDiagonalDirection");
+						//
 						toMove.location = new Point((int)startPoint.getX(),(int)startPoint.getY());
 						return null;
 						
@@ -425,9 +425,9 @@ public class GamePanel extends JPanel {//Refactored from GamePanel
 			}
 			if(direction.equals("W")) {
 				if(type.equals("13")) {
-					System.out.println("Checking Point: " + startPoint);
+					//
 					if(!isUnobstructed(map[(int) (startPoint.getX())][(int) startPoint.getY()],"S",map)) {
-						System.out.println("Illegal Move: parseDiagonalDirection");
+						//
 						toMove.location = new Point((int)startPoint.getX(),(int)startPoint.getY());
 						return null;
 						
@@ -436,9 +436,9 @@ public class GamePanel extends JPanel {//Refactored from GamePanel
 					return "S";
 				}
 				if(type.equals("24")) {
-					System.out.println("Checking Point: " + startPoint);
+					//
 					if(!isUnobstructed(map[(int) (startPoint.getX())][(int) startPoint.getY()],"N",map)) {
-						System.out.println("Illegal Move: parseDiagonalDirection");
+						//
 						toMove.location = new Point((int)startPoint.getX(),(int)startPoint.getY());
 						return null;
 						
@@ -470,26 +470,26 @@ public class GamePanel extends JPanel {//Refactored from GamePanel
 				for(Point2D cenPiece: centerPieces) {
 				if(map[(int)mp.point.getX()][(int)mp.point.getY()-1].point.equals(cenPiece)) {
 					
-					System.out.println("Blocked by:  isBlocked");
+					//
 					return false;
 				}
 				}
 				if(map[(int)mp.point.getX()][(int)mp.point.getY()-1].robotDisplayed != null) {
 					
-					System.out.println("Blocked by:  isBlocked");
+					//
 					return false;
 				}
 				
 				
-				//System.out.println("Split: "+ mp.getPieceType().split(",")[0]);
+				////
 				if(mp.point.getY()==0) {
-					System.out.println("Blocked by:  isBlocked");
+					//
 					return false;
 				}
 				
 				if(mp.getPieceType().split(",")[0].contains("topWall")
 						|| map[(int)mp.point.getX()][(int)mp.point.getY()-1].getPieceType().contains("bottomWall")) {
-					System.out.println("Blocked by:  isBlocked");
+					//
 					return false;
 				}
 				if(mp.getPieceType().split(",")[0].contains("bottomWall")) {
@@ -503,12 +503,12 @@ public class GamePanel extends JPanel {//Refactored from GamePanel
 				}
 				if(mp.getPieceType().split(",")[0].contains("1l")
 						|| map[(int)mp.point.getX()][(int)mp.point.getY()-1].getPieceType().split(",")[0].contains("3l")) {
-					System.out.println("Blocked by:  isBlocked");
+					//
 					return false;
 				}
 				if(mp.getPieceType().split(",")[0].contains("2l")
 						|| map[(int)mp.point.getX()][(int)mp.point.getY()-1].getPieceType().split(",")[0].contains("4l")) {
-					System.out.println("Blocked by:  isBlocked");
+					//
 					return false;
 				}
 				if(mp.getPieceType().split(",")[0].contains("3l")) {
@@ -518,11 +518,11 @@ public class GamePanel extends JPanel {//Refactored from GamePanel
 					return true;
 				}
 				if(mp.getPieceType().split(",")[0].contains("13")) {//This is where we add the color check
-				//	System.out.println("Blocked by:  isBlocked");
+				//	//
 				//	return false;
 				}
 				if(mp.getPieceType().split(",")[0].contains("24")) {
-				//	System.out.println("Blocked by:  isBlocked");
+				//	//
 				//	return false;
 				}
 				
@@ -533,28 +533,28 @@ public class GamePanel extends JPanel {//Refactored from GamePanel
 				for(Point2D cenPiece: centerPieces) {
 					if(map[(int)mp.point.getX()][(int)mp.point.getY()+1].point.equals(cenPiece)) {
 						
-						System.out.println("Blocked by:  isBlocked");
+						//
 						return false;
 					}
 				}
 				if(map[(int)mp.point.getX()][(int)mp.point.getY()+1].robotDisplayed != null) {
 					
-					System.out.println("Blocked by:  isBlocked");
+					//
 					return false;
 				}
 				
 				if(mp.point.getY()==15) {
-					System.out.println("Blocked by:  isBlocked1");
+					//
 					return false;
 				}
 				
 				if(mp.getPieceType().split(",")[0].contains("topWall")) {
 					return true;
 				}
-				//System.out.println("Split: "+ mp.getPieceType().split(",")[0]);
+				////
 				if(mp.getPieceType().split(",")[0].contains("bottomWall")
 						|| map[(int)mp.point.getX()][(int)mp.point.getY()+1].getPieceType().contains("topWall")) {
-					System.out.println("Blocked by:  isBlocked");
+					//
 					return false;
 				}
 				if(mp.getPieceType().split(",")[0].contains("leftWall")) {
@@ -570,19 +570,19 @@ public class GamePanel extends JPanel {//Refactored from GamePanel
 					return true;
 				}
 				if(mp.getPieceType().split(",")[0].contains("3l")|| map[(int)mp.point.getX()][(int)mp.point.getY()+1].getPieceType().split(",")[0].contains("1l")) {
-					System.out.println("Blocked by:  isBlocked");
+					//
 					return false;
 				}
 				if(mp.getPieceType().split(",")[0].contains("4l")|| map[(int)mp.point.getX()][(int)mp.point.getY()+1].getPieceType().split(",")[0].contains("2l")) {
-					System.out.println("Blocked by:  isBlocked");
+					//
 					return false;
 				}
 				if(mp.getPieceType().split(",")[0].contains("13")) {
-					//System.out.println("Blocked by:  isBlocked");
+					////
 					//return false;
 				}
 				if(mp.getPieceType().split(",")[0].contains("24")) {
-					//System.out.println("Blocked by:  isBlocked");
+					////
 					//return false;
 				}
 				
@@ -594,19 +594,19 @@ public class GamePanel extends JPanel {//Refactored from GamePanel
 				for(Point2D cenPiece: centerPieces) {
 					if(map[(int)mp.point.getX()+1][(int)mp.point.getY()].point.equals(cenPiece)) {
 						
-						System.out.println("Blocked by:  isBlocked");
+						//
 						return false;
 					}
 				}
 				
 				if(map[(int)mp.point.getX()+1][(int)mp.point.getY()].robotDisplayed != null) {
 					
-					System.out.println("Blocked by:  isBlocked");
+					//
 					return false;
 				}
-				//System.out.println("Split: "+ mp.getPieceType().split(",")[0]);
+				////
 				if(mp.point.getX()==15) {
-					System.out.println("Blocked by:  isBlocked1");
+					//
 					return false;
 				}
 				
@@ -621,12 +621,12 @@ public class GamePanel extends JPanel {//Refactored from GamePanel
 				}
 				if(mp.getPieceType().split(",")[0].contains("rightWall")
 						|| map[(int)mp.point.getX()+1][(int)mp.point.getY()].getPieceType().contains("leftWall")) {
-					System.out.println("Blocked by:  isBlocked");
+					//
 					return false;
 				}
 				if(mp.getPieceType().split(",")[0].contains("1l")
 						|| map[(int)mp.point.getX()+1][(int)mp.point.getY()].getPieceType().split(",")[0].contains("2l")) {
-					System.out.println("Blocked by:  isBlocked");
+					//
 					return false;
 				}
 				if(mp.getPieceType().split(",")[0].contains("2l")) {
@@ -637,15 +637,15 @@ public class GamePanel extends JPanel {//Refactored from GamePanel
 				}
 				if(mp.getPieceType().split(",")[0].contains("4l")
 						|| map[(int)mp.point.getX()+1][(int)mp.point.getY()].getPieceType().split(",")[0].contains("3l")) {
-					System.out.println("Blocked by:  isBlocked");
+					//
 					return false;
 				}
 				if(mp.getPieceType().split(",")[0].contains("13")) {
-					////System.out.println("Blocked by:  isBlocked");
+					//////
 					//return false;
 				}
 				if(mp.getPieceType().split(",")[0].contains("24")) {
-					//System.out.println("Blocked by:  isBlocked");
+					////
 					//return false;
 				}
 			}
@@ -654,19 +654,19 @@ public class GamePanel extends JPanel {//Refactored from GamePanel
 				for(Point2D cenPiece: centerPieces) {
 					if(map[(int)mp.point.getX()-1][(int)mp.point.getY()].point.equals(cenPiece)) {
 						
-						System.out.println("Blocked by:  isBlocked");
+						//
 						return false;
 					}
 				}
 				if(map[(int)mp.point.getX()-1][(int)mp.point.getY()].robotDisplayed != null) {
 					
-					System.out.println("Blocked by:  isBlocked");
+					//
 					return false;
 				}
 				
-				//System.out.println("Split: "+ mp.getPieceType().split(",")[0]);
+				////
 				if(mp.point.getX()==0) {
-					System.out.println("Blocked by:  isBlocked1");
+					//
 					return false;
 				}
 				
@@ -678,7 +678,7 @@ public class GamePanel extends JPanel {//Refactored from GamePanel
 				}
 				if(mp.getPieceType().split(",")[0].contains("leftWall")
 						|| map[(int)mp.point.getX()-1][(int)mp.point.getY()].getPieceType().contains("rightWall")) {
-					System.out.println("Blocked by:  isBlocked");
+					//
 					return false;
 				}
 				if(mp.getPieceType().split(",")[0].contains("rightWall")) {
@@ -689,23 +689,23 @@ public class GamePanel extends JPanel {//Refactored from GamePanel
 				}
 				if(mp.getPieceType().split(",")[0].contains("2l")
 						|| map[(int)mp.point.getX()-1][(int)mp.point.getY()].getPieceType().split(",")[0].contains("1l")) {
-					System.out.println("Blocked by:  isBlocked");
+					//
 					return false;
 				}
 				if(mp.getPieceType().split(",")[0].contains("3l")
 						|| map[(int)mp.point.getX()-1][(int)mp.point.getY()].getPieceType().split(",")[0].contains("4l")) {
-					System.out.println("Blocked by:  isBlocked");
+					//
 					return false;
 				}
 				if(mp.getPieceType().split(",")[0].contains("4l")) {
 					return true;
 				}
 				if(mp.getPieceType().split(",")[0].contains("13")) {
-				//	System.out.println("Blocked by:  isBlocked");
+				//	//
 				//	return false;
 				}
 				if(mp.getPieceType().split(",")[0].contains("24")) {
-				//	System.out.println("Blocked by:  isBlocked");
+				//	//
 				//	return false;
 				}
 				
@@ -765,28 +765,28 @@ public class GamePanel extends JPanel {//Refactored from GamePanel
 		 static String getDirection(Robot robot, MapPiece mp) {
 			 
 			 Point2D pointA = robot.location;
-			 //System.out.println("PointA: " + pointA);
+			 ////
 			 Point2D pointB = mp.point;
-			 //System.out.println("PointB: " + pointB);
+			 ////
 			 
 			int xDifference = (int) (pointB.getX() - pointA.getX());
 			int yDifference = (int) (pointB.getY() - pointA.getY());
 			
 			if(Math.abs(xDifference) > Math.abs(yDifference)) {
 				if(xDifference > 0) {
-					//System.out.println("E");
+					////
 					return "E";
 				}else {
-					//System.out.println("W");
+					////
 					return "W";
 				}
 				
 			}else {
 				if(yDifference > 0) {
-					//System.out.println("S");
+					////
 					return "S";
 				}else {
-					//System.out.println("N");
+					////
 					return "N";
 				}
 				
@@ -807,7 +807,7 @@ public class GamePanel extends JPanel {//Refactored from GamePanel
 				  Point2D pnt = mp.point;
 				  Rectangle toTest = new Rectangle((int)(mp.getWidth()*pnt.getX()),(int)(mp.getHeight()*pnt.getY()),mp.getWidth(),mp.getHeight());
 				  if(toTest.contains(point)) {
-					 // System.out.println("Point clicked: " + pnt);//Prints the Point selected in range (0,0)->(15,15);
+					 // //
 					  return mp;
 				  }
 			  }  
@@ -840,7 +840,7 @@ public class GamePanel extends JPanel {//Refactored from GamePanel
 	Robot[] generateRobots(boolean colorCheckIn) {
 		
 		Robot[] robotArray = new Robot[4];
-		//System.out.println(colorCheckIn);
+		////
 		robotArray[0] = new Robot(1,colorCheckIn);
 		robotArray[1] = new Robot(2,colorCheckIn);
 		robotArray[2] = new Robot(3,colorCheckIn);
@@ -851,42 +851,42 @@ public class GamePanel extends JPanel {//Refactored from GamePanel
 			
 			Point point = new Point((int)(Math.random()*15),(int)(Math.random()*15));
 		
-			//System.out.println(point.x+"   "+point.y);
+			////
 			robot.moveRobot(point);	
 		}
 		for (MapPiece mp : getMapPieceArray()) {
 
 			
 			if(mp.point.equals(robotArray[0].location)&& mp.token != null) {
-				//System.out.println("00");
+				////
 				return generateRobots(colorCheckIn);
 			}
 			if(mp.point.equals(robotArray[1].location)&& mp.token != null) {
-				//System.out.println("11");
+				////
 				return generateRobots(colorCheckIn);
 			}
 			if(mp.point.equals(robotArray[2].location)&& mp.token != null) {
-				//System.out.println("22");
+				////
 				return generateRobots(colorCheckIn);
 			}
 			if(mp.point.equals(robotArray[3].location)&& mp.token != null) {
-				//System.out.println("33");
+				////
 				return generateRobots(colorCheckIn);
 			}
 			if(mp.point.equals(robotArray[0].location)&& !isMapPieceLegal(mp)) {
-				//System.out.println("000");
+				////
 				return generateRobots(colorCheckIn);
 			}
 			if(mp.point.equals(robotArray[1].location)&& !isMapPieceLegal(mp)) {
-				//System.out.println("111");
+				////
 				return generateRobots(colorCheckIn);
 			}
 			if(mp.point.equals(robotArray[2].location)&& !isMapPieceLegal(mp)) {
-				//System.out.println("222");
+				////
 				return generateRobots(colorCheckIn);
 			}
 			if(mp.point.equals(robotArray[3].location)&& !isMapPieceLegal(mp)) {
-				//System.out.println("333");
+				////
 				return generateRobots(colorCheckIn);
 			}
 		}
@@ -941,7 +941,7 @@ public class GamePanel extends JPanel {//Refactored from GamePanel
 		for (int i = 0; i < 16; i++) {
 
 			for (int j = 0; j < 16; j++) {
-				//System.out.println("making frame");
+				////
 				imageMap[i][j] = new MapPiece(stringMapArray[i][j], SCREENSIZE, fontSize, colorCheck, robots,new Point(i, j));
 			}
 		}
@@ -998,7 +998,7 @@ public class GamePanel extends JPanel {//Refactored from GamePanel
 					}
 				}
 				mapLayout[mapIndex]= new SimplePanel1(); 
-				//System.out.println(":1");
+				////
 				mapIndex++;	
 			}
 			//2
@@ -1009,7 +1009,7 @@ public class GamePanel extends JPanel {//Refactored from GamePanel
 					}
 				}
 				mapLayout[mapIndex] = new SimplePanel2(); 
-				//System.out.println(":2");
+				////
 				mapIndex++;
 			}
 			//3
@@ -1020,7 +1020,7 @@ public class GamePanel extends JPanel {//Refactored from GamePanel
 					}
 				}
 				mapLayout[mapIndex] = new SimplePanel3(); 
-				//System.out.println(":3");
+				////
 				mapIndex++;
 			}
 			//4
@@ -1032,7 +1032,7 @@ public class GamePanel extends JPanel {//Refactored from GamePanel
 					}
 				}
 				mapLayout[mapIndex] = new SimplePanel4(); 
-				//System.out.println(":4");
+				////
 				mapIndex++;
 			}
 			
@@ -1061,7 +1061,7 @@ public class GamePanel extends JPanel {//Refactored from GamePanel
 					}
 				}
 				mapLayout[mapIndex]= new ComplexPanel1(); 
-				//System.out.println(":1D");
+				////
 				mapIndex++;	
 			}
 			//2
@@ -1072,7 +1072,7 @@ public class GamePanel extends JPanel {//Refactored from GamePanel
 					}
 				}
 				mapLayout[mapIndex] = new ComplexPanel2(); 
-				//System.out.println(":2D");
+				////
 				mapIndex++;
 			}
 			//3
@@ -1083,7 +1083,7 @@ public class GamePanel extends JPanel {//Refactored from GamePanel
 					}
 				}
 				mapLayout[mapIndex] = new ComplexPanel3(); 
-				//System.out.println(":3D");
+				////
 				mapIndex++;
 			}
 			//4
@@ -1095,7 +1095,7 @@ public class GamePanel extends JPanel {//Refactored from GamePanel
 					}
 				}
 				mapLayout[mapIndex] = new ComplexPanel4(); 
-				//System.out.println(":4D");
+				////
 				mapIndex++;
 			}
 			
@@ -1115,10 +1115,10 @@ public class GamePanel extends JPanel {//Refactored from GamePanel
 		MapPanel mp4 = rotate2DStringArray(mapLayout[3],3);
 		
 		
-		//System.out.println("mp1: " + mp1.getMap()[7][7]);
-		//System.out.println("mp2: " + mp2.getMap()[0][7]);
-		//System.out.println("mp3: " + mp3.getMap()[0][0]);
-		//System.out.println("mp4: " + mp4.getMap()[7][0]);
+		////
+		////
+		////
+		////
 
 
 		for(int i = 0; i< 8; i++) {
@@ -1160,7 +1160,7 @@ public class GamePanel extends JPanel {//Refactored from GamePanel
 	//Recursive function to rotate a MapPanel to a specified outputQuadrant 
 	MapPanel rotate2DStringArray(MapPanel toRotate,int outputQuadrant) {
 
-		//System.out.println("outputQuadrant: "+outputQuadrant +"  toRotate: " +toRotate.getPanelLocation());
+		////
 		if(outputQuadrant == toRotate.getPanelLocation()) {
 			return toRotate;
 		}else {
@@ -1228,12 +1228,12 @@ public class GamePanel extends JPanel {//Refactored from GamePanel
 						//break;
 					}
 					if(toRetu.substring(1).equals("24")) {
-						//System.out.println(String.valueOf(toRetu.charAt(0)).concat("24"));
+						////
 						toReturn[indexJ][indexI] = String.valueOf(toRetu.charAt(0)).concat("13");
 						
 					}
 					if(toRetu.substring(1).equals("13")) {
-						//System.out.println(String.valueOf(toRetu.charAt(0)).concat("13"));
+						////
 						toReturn[indexJ][indexI] =String.valueOf(toRetu.charAt(0)).concat("24");
 						
 					}
@@ -1268,7 +1268,7 @@ public class GamePanel extends JPanel {//Refactored from GamePanel
 		
 		
 		if(isTurnRound&& robotClicked != null){
-			//System.out.println("??? robotCLicked");
+			////
 			if(SwingUtilities.isRightMouseButton(e)) {
 				robotClicked = null;
 				clickedMapPiece = null;
@@ -1281,7 +1281,7 @@ public class GamePanel extends JPanel {//Refactored from GamePanel
 	
 		if(isTurnRound&& robotClicked == null&&clickedMapPiece == null&&getMapPieceFromMouse(e.getPoint()).robotDisplayed != null&& SwingUtilities.isLeftMouseButton(e)) {
 			robotClicked = getMapPieceFromMouse(e.getPoint()).robotDisplayed;//Gets the robot clicked by the player during the Turn Round
-			//System.out.println("Populating robotCLicked");
+			////
 		}
 		
 		

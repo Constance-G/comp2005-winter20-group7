@@ -24,7 +24,7 @@ public class Robot {
 		
 		colorCheck = colorCheckIn;
 		robotImage = drawTokens();
-		System.out.println(colorCheck);
+		//
 	}
 
 	
@@ -61,7 +61,7 @@ public class Robot {
 		if(robotNum == 1) {
 			URL url = Robot.class.getResource(filePath +"diamondSolid.png");
 			currentShape= "Diamond";
-			System.out.println(colorCheck);
+			//
 			if(colorCheck) {
 				url = Robot.class.getResource(filePath +"diamondSolid.png");
 				currentShape= "Diamond";
@@ -71,7 +71,7 @@ public class Robot {
 			}
 			try {
 				image = ImageIO.read(url);
-				System.out.println("1");
+				//
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -91,7 +91,7 @@ public class Robot {
 			}
 			try {		
 				image = ImageIO.read(url);
-				System.out.println("2");
+				//
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -131,7 +131,7 @@ public class Robot {
 			}
 			try {
 				image = ImageIO.read(url);
-				// System.out.println("4");
+				// //
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

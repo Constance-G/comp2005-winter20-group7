@@ -67,7 +67,7 @@ class ScorePanel extends JPanel {
 		TableModel newModel = j.getModel();
 		for(int i = 0; i <newModel.getRowCount() ;i++) {
 			for(int k = 0; k <newModel.getColumnCount() ;k++) {
-				//System.out.println("I: "+i+" k: "+ k);
+				////
 				j.getModel().getValueAt(i, k);
 				newModel.setValueAt(j.getModel().getValueAt(i, k), i, k);
 			}
@@ -78,9 +78,9 @@ class ScorePanel extends JPanel {
 		newModel.setValueAt(String.valueOf(play[3].tokens), 3, 1);
 		
 		if(gamePanel.playersTurn != null) {
-			turn.setText("  "+gamePanel.playersTurn.name+"'s Turn:");
+			turn.setText("Turn: "+gamePanel.playersTurn.name+" "+"  Bet: " +gamePanel.playersTurn.bet);
 		}else {
-			turn.setText("");
+			turn.setText("Waiting for player");
 		}
 		if(gamePanel.isBettingRound) {
 			turn.setText("Place your bets!");

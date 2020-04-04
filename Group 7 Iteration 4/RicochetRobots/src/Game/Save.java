@@ -21,9 +21,9 @@ public class Save {
 			try {
 
 				Files.createDirectories(newFolder);
-				System.out.println("Creating save folder: ");
+				//
 			} catch (IOException e) {
-				System.out.println("Failed to create save folder: ");
+				//
 				e.printStackTrace();
 			}
 		}
@@ -123,7 +123,7 @@ public class Save {
 
 		File fileOut = new File(file.getPath() + "/" + System.currentTimeMillis() + ".txt");
 		FileWriter writer = null;
-		System.out.println(fileOut);
+		//
 		try {
 			fileOut.createNewFile();
 		} catch (IOException e) {

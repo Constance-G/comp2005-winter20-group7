@@ -2,10 +2,16 @@ package Game;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.geom.Point2D;
+import java.util.ArrayList;
+import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -36,7 +42,7 @@ public class GameBoard extends JFrame implements ActionListener {
 
 	GameBoard() {
 
-		System.out.println("MainBoard.MainBoard()");
+		//
 
 		int ScreenSize = (int) (Math.round((Toolkit.getDefaultToolkit().getScreenSize().height) * .75 / 100)) * 100; // This
 																														// is
@@ -102,7 +108,7 @@ public class GameBoard extends JFrame implements ActionListener {
 			Load load = new Load();
 			if (load.loadGame()) {// If the user selects a file
 				remove(launchPanel);
-				System.out.println(load.colorCheck + "IIIIIII");
+				//
 				
 				gamePanel = load.getGamePanelFromLoadState();
 				gamePanel.robots = load.robots;
@@ -123,7 +129,7 @@ public class GameBoard extends JFrame implements ActionListener {
 						gamePanel.playersTurn = player;
 					}
 				}
-				System.out.println(gamePanel.players[0].name + "iii");
+				//
 				add(gamePanel);
 				savePanel = new JPanel();
 				insertBox = new TokenBox(gamePanel); // ****** create token box
@@ -283,10 +289,10 @@ public class GameBoard extends JFrame implements ActionListener {
 		// Code to get the first turn started
 
 		if (gamePanel != null && gamePanel.isBettingRound == false && gamePanel.isTurnRound == false) {
-			// System.out.println(gamePanel.isBettingRound +" "+gamePanel.isTurnRound);
+			// //
 
 			if (e.getSource().equals(insertBox.getGenBtn())) {// Code for genBtn
-				System.out.println("System.");
+				//
 				bettingPanel = new BettingPanel(gamePanel.players,
 						Integer.parseInt(String.valueOf(playersPanel.jCombo.getSelectedItem())));
 				insertBox.generateNewShape();
@@ -294,7 +300,7 @@ public class GameBoard extends JFrame implements ActionListener {
 
 				gamePanel.isBettingRound = true;
 				bettingPanel.setPreferredSize(new Dimension(70, 150));
-				System.out.println("Start betting");
+				//
 				add(bettingPanel, BorderLayout.SOUTH);
 				
 				return;
@@ -305,9 +311,9 @@ public class GameBoard extends JFrame implements ActionListener {
 		if (gamePanel != null && bettingPanel != null && gamePanel.isBettingRound == true
 				&& !bettingPanel.isShowing()) {// Need to update isBettingRound to e.get(Generate
 
-			// System.out.println("Betting Round: True");
+			// //
 			bettingPanel.setPreferredSize(new Dimension(70, 150));
-			System.out.println("Start betting");
+			//
 			add(bettingPanel, BorderLayout.SOUTH);
 
 			return;
@@ -346,11 +352,11 @@ public class GameBoard extends JFrame implements ActionListener {
 				for (MapPiece piece : mapArray) {
 
 					if (piece.token != null && piece.robotDisplayed != null) {
-						// System.out.println("Checking Winner");
+						// //
 						if (piece.robotDisplayed.currentShape.equals(insertBox.getTokenShape())) {
 
 							if (piece.token.tokenNum == insertBox.getTokenNumber()) {
-								System.out.println("Winner!");
+								//
 								gamePanel.playersTurn.tokens++;
 								gamePanel.isTurnRound = false;
 								gamePanel.isBettingRound = false;
@@ -411,7 +417,7 @@ public class GameBoard extends JFrame implements ActionListener {
 
 						gamePanel.playersTurn = playersPanel.getPlayerArray()[i];
 						gamePanel.playersTurn.bet = snallestBet;
-						System.out.println(gamePanel.playersTurn.name + "'s turn");
+						//
 						initalState = new Robot[4];
 						initalState[0] = new Robot(gamePanel.robots[0]);
 						initalState[1] = new Robot(gamePanel.robots[1]);
@@ -436,11 +442,11 @@ public class GameBoard extends JFrame implements ActionListener {
 																										// TODO:
 
 				ai.isDoingTurn = true;
-				timer.setDelay(10);
-				//System.out.println("Computer turn: " + gamePanel.playersTurn.isComputer);
+				timer.setDelay(500);
+				////
 				MapPiece[][] mapPieces = (MapPiece[][]) gamePanel.imageMap;
 
-				//System.out.println("AttemptingMove");
+				////
 				// AiLogic ai = new AiLogic();
 
 				if (ai.weights == null) {
@@ -451,7 +457,7 @@ public class GameBoard extends JFrame implements ActionListener {
 				while (true) {
 
 					if ((!GamePanel.isLegalMovev2(mapPieces, gamePanel.robots, ai.targetRobot,ai.getNext(gamePanel.playersTurn, this)))) {
-						System.out.println("Illegal move selected by Ai");
+						//
 						i++;
 						if (i >= 4) {
 							ai.loadLiveData(gamePanel.playersTurn, this);
@@ -461,28 +467,34 @@ public class GameBoard extends JFrame implements ActionListener {
 						break;
 					}
 				}
-				//System.out.println("AttemptingMove");
+				////
 
-				//System.out.println("AttemptingMove" + ai.targetRobot.location + "Direction: " + ai.direction);
+				////
+				
+				Point2D initalpoint = new Point((int)ai.targetRobot.location.getX(),(int)ai.targetRobot.location.getY());
 				ai.targetRobot.location = GamePanel.attemptMove(mapPieces, gamePanel.robots, ai.targetRobot,
 						ai.direction);
-
-				//System.out.println("MoveDone" + ai.targetRobot.location);
+				Point2D finalpoint = new Point((int)ai.targetRobot.location.getX(),(int)ai.targetRobot.location.getY());
+				
+				if(initalpoint.equals(finalpoint)) {
+					return;
+				}
+				////
 				gamePanel.playersTurn.bet--;
-				// System.out.println("InitalState");
+				// //
 				if (gamePanel.playersTurn.bet == 0) {
 
 					for (MapPiece[] mapArray : mapPieces) {
 						for (MapPiece piece : mapArray) {
 
 							if (piece.token != null && piece.robotDisplayed != null) {
-								// System.out.println("Checking Winner");
+								// //
 
 								if (piece.robotDisplayed.currentShape.equals(insertBox.getTokenShape())) {
 
 									if (piece.token.tokenNum == 17) {
 
-										System.out.println("Winner!");
+										//
 										gamePanel.playersTurn.tokens++;
 										gamePanel.isTurnRound = false;
 										gamePanel.isBettingRound = false;
@@ -494,7 +506,7 @@ public class GameBoard extends JFrame implements ActionListener {
 									}
 
 									if (piece.token.tokenNum == insertBox.getTokenNumber()) {
-										System.out.println("Winner!");
+										//
 										gamePanel.playersTurn.tokens++;
 										gamePanel.isTurnRound = false;
 										gamePanel.isBettingRound = false;
@@ -509,7 +521,7 @@ public class GameBoard extends JFrame implements ActionListener {
 							}
 						}
 					}
-					System.out.println("InitalState");
+					//
 					gamePanel.robots = initalState;
 
 					gamePanel.playersTurn.bet = -1;
@@ -523,16 +535,16 @@ public class GameBoard extends JFrame implements ActionListener {
 				gamePanel.clickedMapPiece = null;
 				gamePanel.robotClicked = null;
 
-				System.out.println("AttemptingMove");
+				//
 				return;
 			}
 
 			if (gamePanel.clickedMapPiece != null && gamePanel.robotClicked != null && gamePanel.playersTurn != null
 					&& gamePanel.playersTurn.isComputer == false) {//
-
+				timer.setDelay(10);
 				MapPiece[][] mapPieces = (MapPiece[][]) gamePanel.imageMap;
 
-				System.out.println("AttemptingMove1");
+				//
 
 				if ((!GamePanel.isLegalMovev2(mapPieces, gamePanel.robots, gamePanel.robotClicked,
 						GamePanel.getDirection(gamePanel.robotClicked, gamePanel.clickedMapPiece)))) {
@@ -546,20 +558,20 @@ public class GameBoard extends JFrame implements ActionListener {
 						GamePanel.getDirection(gamePanel.robotClicked, gamePanel.clickedMapPiece));
 
 				gamePanel.playersTurn.bet--;
-				System.out.println("InitalState");
+				//
 				if (gamePanel.playersTurn.bet == 0) {
 
 					for (MapPiece[] mapArray : mapPieces) {
 						for (MapPiece piece : mapArray) {
 
 							if (piece.token != null && piece.robotDisplayed != null) {
-								// System.out.println("Checking Winner");
+								// //
 
 								if (piece.robotDisplayed.currentShape.equals(insertBox.getTokenShape())) {
 
 									if (piece.token.tokenNum == 17) {
 
-										System.out.println("Winner!");
+										//
 										gamePanel.playersTurn.tokens++;
 										gamePanel.isTurnRound = false;
 										gamePanel.isBettingRound = false;
@@ -571,7 +583,7 @@ public class GameBoard extends JFrame implements ActionListener {
 									}
 
 									if (piece.token.tokenNum == insertBox.getTokenNumber()) {
-										System.out.println("Winner!");
+										//
 										gamePanel.playersTurn.tokens++;
 										gamePanel.isTurnRound = false;
 										gamePanel.isBettingRound = false;
@@ -586,7 +598,7 @@ public class GameBoard extends JFrame implements ActionListener {
 							}
 						}
 					}
-					System.out.println("InitalState");
+					//
 					gamePanel.robots = initalState;
 
 					gamePanel.playersTurn.bet = -1;
@@ -598,7 +610,7 @@ public class GameBoard extends JFrame implements ActionListener {
 
 				gamePanel.clickedMapPiece = null;
 				gamePanel.robotClicked = null;
-				System.out.println("AttemptingMove");
+				//
 				return;
 			}
 
@@ -607,12 +619,12 @@ public class GameBoard extends JFrame implements ActionListener {
 			}
 
 			if (gamePanel.robotClicked != null && gamePanel.playersTurn != null) {
-				// System.out.println(gamePanel.robotClicked.location.toString());// Draw
+				// //// Draw
 				// MoveHints (Directions robot can
 				// move)
 			}
 			if (gamePanel.robotClicked != null && gamePanel.clickedMapPiece != null && gamePanel.playersTurn != null) {
-				System.out.println("RobotMove");
+				//
 			}
 
 			for (Player player : gamePanel.players) {
@@ -636,21 +648,235 @@ public class GameBoard extends JFrame implements ActionListener {
 			// submitted to
 			// skip the
 			// timer
-			System.out.println("Turn Round: Turn triggred by 4 submited");
+			//
 			gamePanel.isTurnRound = true;
 			gamePanel.isBettingRound = false;
+			ArrayList<Integer> bets = new ArrayList<Integer>();
+			int averageBet = 0;
+			Player[] players = gamePanel.players;
+			
+			if(!players[0].isComputer ) {
+				bets.add(Integer.parseInt(bettingPanel.amount_1.getText()));
+			}
+			if(!players[1].isComputer ) {
+				bets.add(Integer.parseInt(bettingPanel.amount_2.getText()));
+			}
+			if(!players[2].isComputer ) {
+				bets.add(Integer.parseInt(bettingPanel.amount_3.getText()));
+			}
+			if(!players[3].isComputer ) {
+				bets.add(Integer.parseInt(bettingPanel.amount_4.getText()));
+			}
+			
+			
+			int total = 0;
+			for(int i = 0; i< bets.size(); i++) {
+				total = total +bets.get(i);
+				
+			}
+			averageBet = total/bets.size();
+			//
+			Random r = new Random();
+			
+			int bet =(int) ((int)averageBet*.75 + r.nextInt((int)((int)averageBet*1.25)  - (int)(averageBet*.75)  + 1));
+			//
+			if(players[0].isComputer ) {
+			
+				players[0].bet = bet;
+				bettingPanel.amount_1.setText(String.valueOf(bet));
+			}
+			
+			if(players[1].isComputer ) {
+			
+				players[1].bet	= bet;
+				bettingPanel.amount_2.setText(String.valueOf(bet));
+				}
+			
+			if(players[2].isComputer ) {
+				
+		
+				players[2].bet= bet;
+				bettingPanel.amount_3.setText(String.valueOf(bet));
+			}
+			
+			if(players[3].isComputer ) {
+				
+				players[3].bet= bet;
+				bettingPanel.amount_4.setText(String.valueOf(bet));
+			
+			}
 		}
 
 		if (bettingPanel != null && gamePanel.isTurnRound == false && bettingPanel.isDone
 				&& gamePanel.isBettingRound == true) {// Turn triggered by lack of
 			// time
-			System.out.println("Turn Round: Turn triggred by time out");
+			//
 			gamePanel.isTurnRound = true;
 			gamePanel.isBettingRound = false;
+			ArrayList<Integer> bets = new ArrayList<Integer>();
+			int averageBet = 0;
+			Player[] players = gamePanel.players;
+			
+			if(!players[0].isComputer ) {
+				bets.add(Integer.parseInt(bettingPanel.amount_1.getText()));
+			}
+			if(!players[1].isComputer ) {
+				bets.add(Integer.parseInt(bettingPanel.amount_2.getText()));
+			}
+			if(!players[2].isComputer ) {
+				bets.add(Integer.parseInt(bettingPanel.amount_3.getText()));
+			}
+			if(!players[3].isComputer ) {
+				bets.add(Integer.parseInt(bettingPanel.amount_4.getText()));
+			}
+			
+			
+			int total = 0;
+			for(int i = 0; i< bets.size(); i++) {
+				total = total +bets.get(i);
+				
+			}
+			averageBet = total/bets.size();
+			//
+			Random r = new Random();
+			
+			int bet =(int) ((int)averageBet*.75 + r.nextInt((int)((int)averageBet*1.25)  - (int)(averageBet*.75)  + 1));
+			//
+			if(players[0].isComputer ) {
+			
+				players[0].bet = bet;
+				bettingPanel.amount_1.setText(String.valueOf(bet));
+			}
+			
+			if(players[1].isComputer ) {
+			
+				players[1].bet	= bet;
+				bettingPanel.amount_2.setText(String.valueOf(bet));
+				}
+			
+			if(players[2].isComputer ) {
+				
+		
+				players[2].bet= bet;
+				bettingPanel.amount_3.setText(String.valueOf(bet));
+			}
+			
+			if(players[3].isComputer ) {
+				
+				players[3].bet= bet;
+				bettingPanel.amount_4.setText(String.valueOf(bet));
+			
+			}
+		}
+		if (bettingPanel != null && gamePanel.isTurnRound == false && gamePanel.isBettingRound == true) {// Turn
+																											// triggered
+																											// by all human player submitting
+
+			boolean done = true;
+			Player[] players = gamePanel.players;
+
+			if (!players[0].isComputer) {
+
+				if (bettingPanel.player1Submitted) {
+
+				} else {
+					done = false;
+
+				}
+			}
+			if (!players[1].isComputer) {
+
+				if (bettingPanel.player2Submitted) {
+
+				} else {
+					done = false;
+
+				}
+			}if (!players[2].isComputer) {
+
+				if (bettingPanel.player3Submitted) {
+
+				} else {
+					done = false;
+
+				}
+			}if (!players[3].isComputer) {
+
+				if (bettingPanel.player4Submitted) {
+
+				} else {
+					done = false;
+
+				}
+			}
+			//
+			if (done) {
+				
+				
+				
+				gamePanel.isTurnRound = true;
+				gamePanel.isBettingRound = false;
+				
+				ArrayList<Integer> bets = new ArrayList<Integer>();
+				int averageBet = 0;
+				
+				
+				if(!players[0].isComputer ) {
+					bets.add(Integer.parseInt(bettingPanel.amount_1.getText()));
+				}
+				if(!players[1].isComputer ) {
+					bets.add(Integer.parseInt(bettingPanel.amount_2.getText()));
+				}
+				if(!players[2].isComputer ) {
+					bets.add(Integer.parseInt(bettingPanel.amount_3.getText()));
+				}
+				if(!players[3].isComputer ) {
+					bets.add(Integer.parseInt(bettingPanel.amount_4.getText()));
+				}
+				
+				
+				int total = 0;
+				for(int i = 0; i< bets.size(); i++) {
+					total = total +bets.get(i);
+					
+				}
+				averageBet = total/bets.size();
+				//
+				Random r = new Random();
+				
+				int bet =(int) ((int)averageBet*.75 + r.nextInt((int)((int)averageBet*1.25)  - (int)(averageBet*.75)  + 1));
+				//
+				if(players[0].isComputer ) {
+				
+					players[0].bet = bet;
+					bettingPanel.amount_1.setText(String.valueOf(bet));
+				}
+				
+				if(players[1].isComputer ) {
+				
+					players[1].bet	= bet;
+					bettingPanel.amount_2.setText(String.valueOf(bet));
+					}
+				
+				if(players[2].isComputer ) {
+					
+			
+					players[2].bet= bet;
+					bettingPanel.amount_3.setText(String.valueOf(bet));
+				}
+				
+				if(players[3].isComputer ) {
+					
+					players[3].bet= bet;
+					bettingPanel.amount_4.setText(String.valueOf(bet));
+				
+				}
+				
+			}
 		}
 
 		// end GamePanel logic
-		// System.out.println("ImALive");
+		// //
 
 		pack(); // Calling this in a loop like fashion ensures GameBoard is always shaped as
 				// intended

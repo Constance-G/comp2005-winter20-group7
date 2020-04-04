@@ -257,7 +257,7 @@ public class TokenBox implements ActionListener{
 			
 		
 			if(gamePanel.waitingForTurn&&gamePanel.isBettingRound == false) { //Ensure it only generates a new token when it should
-				System.out.println("jj");
+				//
 				//generateRandomNum();
 				//generateNewShape();
 				
